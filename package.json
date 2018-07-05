@@ -15,10 +15,9 @@
     "dev-server": "NR_PROCESSES=1 nodemon src/backend/index.js",
     "dev-client": "webpack-dev-server --mode development --hot",
     "dev": "npm-run-all --parallel dev-server dev-client",
-    "lint": "eslint --ext .jsx src",
-    "lint-fix": "eslint --fix --ext .jsx src",
-    "test": "./node_modules/istanbul/lib/cli.js cover ./node_modules/.bin/_mocha",
-    "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
+    "lint": "eslint src",
+    "lint-fix": "eslint --fix src",
+    "test": "mocha"
   },
   "dependencies": {
     "autoprefixer": "^8.6.4",

@@ -44,7 +44,7 @@
     "id-length": [
       "error",
       {
-        "exceptions": ["_", "x", "y"]
+        "exceptions": ["_", "x", "y", "i"]
       }
     ],
     "no-use-before-define": ["error", "nofunc"],
