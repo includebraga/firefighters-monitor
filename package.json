@@ -15,8 +15,8 @@
     "dev-server": "NR_PROCESSES=1 nodemon src/backend/index.js",
     "dev-client": "webpack-dev-server --mode development --hot",
     "dev": "npm-run-all --parallel dev-server dev-client",
-    "lint": "eslint src",
-    "lint-fix": "eslint --fix src",
+    "lint": "eslint src test",
+    "lint-fix": "eslint --fix src test",
     "test": "mocha"
   },
   "dependencies": {
@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-config-prettier": "^2.9.0",
