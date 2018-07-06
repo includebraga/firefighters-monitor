@@ -1,13 +1,9 @@
 import React from "react";
 import { AppContainer } from "react-hot-loader";
 import ReactDOM from "react-dom";
+import "regenerator-runtime/runtime";
 
 import App from "./components/App";
-
-/* eslint-disable */
-const URL =
-  process.env.NODE_ENV === "development" ? "http://localhost:3000/" : "/";
-/* eslint-enable */
 
 ReactDOM.render(
   <AppContainer>

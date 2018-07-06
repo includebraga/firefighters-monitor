@@ -1,5 +1,5 @@
 const { expect } = require("chai");
-const firefightersApi = require("../src/backend/firefighters");
+const firefightersApi = require("../../src/backend/firefighters");
 
 describe("Firefighters API", () => {
   afterEach(() => {

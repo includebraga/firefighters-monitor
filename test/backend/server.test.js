@@ -1,7 +1,7 @@
 const chai = require("chai");
 const chaiHttp = require("chai-http");
-const server = require("../src/backend/server");
-const firefightersApi = require("../src/backend/firefighters");
+const server = require("../../src/backend/server");
+const firefightersApi = require("../../src/backend/firefighters");
 
 const { expect } = chai;
 const app = server.listen(3000);

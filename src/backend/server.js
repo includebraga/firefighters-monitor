@@ -1,9 +1,12 @@
 const compression = require("compression");
 const express = require("express");
 const path = require("path");
+const cors = require("cors");
 const firefighters = require("./firefighters");
 
 const app = express();
+
+if (process.env.NODE_ENV !== "production") app.use(cors());
 
 app.use(compression());
 app.use(
