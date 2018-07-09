@@ -5,6 +5,9 @@ import "regenerator-runtime/runtime";
 
 import App from "./components/App";
 
+import "./styles/reset.css";
+import "./styles/normalize.css";
+
 ReactDOM.render(
   <AppContainer>
     <App />

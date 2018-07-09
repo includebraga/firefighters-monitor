@@ -10,9 +10,9 @@ describe("Firefighters API", () => {
     const firefighters = firefightersApi.getFirefighters();
 
     expect(firefighters).to.be.eql([
-      { name: "Jonh Doe", active: false },
-      { name: "Mary Donina", active: false },
-      { name: "Joaquim Alberto", active: false }
+      { id: "1", name: "Jonh Doe", active: false },
+      { id: "2", name: "Mary Donina", active: false },
+      { id: "3", name: "Joaquim Alberto", active: false }
     ]);
   });
 
@@ -20,9 +20,9 @@ describe("Firefighters API", () => {
     const firefighters = firefightersApi.addActiveFirefighter(2);
 
     expect(firefighters).to.be.eql([
-      { name: "Jonh Doe", active: false },
-      { name: "Mary Donina", active: true },
-      { name: "Joaquim Alberto", active: false }
+      { id: "1", name: "Jonh Doe", active: false },
+      { id: "2", name: "Mary Donina", active: true },
+      { id: "3", name: "Joaquim Alberto", active: false }
     ]);
   });
 
@@ -31,9 +31,9 @@ describe("Firefighters API", () => {
     const firefighters = firefightersApi.removeActiveFirefighter(3);
 
     expect(firefighters).to.be.eql([
-      { name: "Jonh Doe", active: false },
-      { name: "Mary Donina", active: false },
-      { name: "Joaquim Alberto", active: false }
+      { id: "1", name: "Jonh Doe", active: false },
+      { id: "2", name: "Mary Donina", active: false },
+      { id: "3", name: "Joaquim Alberto", active: false }
     ]);
   });
 });

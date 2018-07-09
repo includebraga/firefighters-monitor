@@ -24,7 +24,11 @@ exports.removeActiveFirefighter = id => {
   return exports.getFirefighters();
 };
 
-exports.getFirefighters = () => Object.values(firefighters);
+exports.getFirefighters = () =>
+  Object.entries(firefighters).map(([id, firefighter]) => ({
+    id,
+    ...firefighter
+  }));
 
 exports.resetFirefighters = () =>
   Object.keys(firefighters).forEach(id => exports.removeActiveFirefighter(id));

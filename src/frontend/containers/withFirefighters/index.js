@@ -1,10 +1,13 @@
 import React, { Component } from "react";
-import axios from "axios";
 
-import apiUrl from "../../utils/apiUrl";
+import {
+  getFirefighters,
+  addActiveFirefighter,
+  removeActiveFirefighter
+} from "../../utils/api";
 
 export default ChildComponent =>
-  class WithApiCall extends Component {
+  class WithFirefighters extends Component {
     state = {
       firefighters: {
         response: null,
@@ -13,19 +16,40 @@ export default ChildComponent =>
     };
 
     async componentDidMount() {
-      const response = await axios.get(`${apiUrl}/api/firefighters`);
+      const response = await getFirefighters();
 
-      /* eslint-disable react/no-did-mount-set-state */
-      this.setState({
-        firefighters: {
-          response: response.data,
-          loading: false
-        }
-      });
-      /* eslint-enable */
+      this.loadResponseIntoState(response);
     }
 
+    loadResponseIntoState = response => {
+      this.setState({
+        firefighters: {
+          loading: false,
+          ...response
+        }
+      });
+    };
+
+    addActiveFirefighter = async id => {
+      const response = await addActiveFirefighter(id);
+
+      this.loadResponseIntoState(response);
+    };
+
+    removeActiveFirefighter = async id => {
+      const response = await removeActiveFirefighter(id);
+
+      this.loadResponseIntoState(response);
+    };
+
     render() {
-      return <ChildComponent {...this.state} {...this.props} />;
+      return (
+        <ChildComponent
+          {...this.state}
+          addActiveFirefighter={this.addActiveFirefighter}
+          removeActiveFirefighter={this.removeActiveFirefighter}
+          {...this.props}
+        />
+      );
     }
   };
