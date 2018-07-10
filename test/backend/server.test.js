@@ -16,6 +16,8 @@ chai.use(chaiHttp);
 describe("Firefighters HTTP API", () => {
   before(async () => {
     await connect();
+
+    await mongoose.connection.db.dropDatabase();
   });
 
   after(async () => {

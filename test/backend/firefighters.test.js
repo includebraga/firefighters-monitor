@@ -9,6 +9,8 @@ const firefightersApi = require("../../src/backend/firefighters");
 describe("Firefighters API", () => {
   before(async () => {
     await connect();
+
+    await mongoose.connection.db.dropDatabase();
   });
 
   after(async () => {
