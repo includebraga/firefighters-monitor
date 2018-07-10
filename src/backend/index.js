@@ -1,6 +1,7 @@
 const cluster = require("cluster");
 const numCpus = require("os").cpus().length;
 const app = require("./server.js");
+const { connect } = require("./config/mongo");
 
 const port = process.env.PORT || 3000;
 const numProcesses = process.env.NR_PROCESSES || numCpus;
@@ -10,6 +11,8 @@ if (cluster.isMaster) {
     cluster.fork();
   }
 } else {
+  connect();
+
   app.listen(port, () =>
     console.log(`firefighters-monitor listening on port ${port}`)
   );

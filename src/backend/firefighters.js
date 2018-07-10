@@ -1,34 +1,29 @@
-const firefighters = {
-  1: { name: "Jonh Doe", active: false },
-  2: { name: "Mary Donina", active: false },
-  3: { name: "Joaquim Alberto", active: false }
-};
+const { Firefighter } = require("./config/mongo");
 
-exports.addActiveFirefighter = id => {
-  const firefighter = firefighters[id];
+exports.addActiveFirefighter = async id => {
+  const firefighter = await Firefighter.findOneAndUpdate(
+    { _id: id },
+    { active: true }
+  );
 
   if (!firefighter) return null;
-
-  firefighter.active = true;
 
   return exports.getFirefighters();
 };
 
-exports.removeActiveFirefighter = id => {
-  const firefighter = firefighters[id];
+exports.removeActiveFirefighter = async id => {
+  const firefighter = await Firefighter.findOneAndUpdate(
+    { _id: id },
+    { active: false }
+  );
 
   if (!firefighter) return null;
-
-  firefighter.active = false;
 
   return exports.getFirefighters();
 };
 
-exports.getFirefighters = () =>
-  Object.entries(firefighters).map(([id, firefighter]) => ({
-    id,
-    ...firefighter
-  }));
+exports.getFirefighters = async () => {
+  const firefighters = await Firefighter.find({});
 
-exports.resetFirefighters = () =>
-  Object.keys(firefighters).forEach(id => exports.removeActiveFirefighter(id));
+  return JSON.parse(JSON.stringify(firefighters));
+};
