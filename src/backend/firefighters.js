@@ -1,20 +1,9 @@
 const { Firefighter } = require("./config/mongo");
 
-exports.addActiveFirefighter = async id => {
+exports.updateFirefighter = async (id, firefighterParams) => {
   const firefighter = await Firefighter.findOneAndUpdate(
     { _id: id },
-    { active: true }
-  );
-
-  if (!firefighter) return null;
-
-  return exports.getFirefighters();
-};
-
-exports.removeActiveFirefighter = async id => {
-  const firefighter = await Firefighter.findOneAndUpdate(
-    { _id: id },
-    { active: false }
+    firefighterParams
   );
 
   if (!firefighter) return null;

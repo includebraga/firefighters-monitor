@@ -12,7 +12,7 @@ const mongoose = require("mongoose");
 const FirefighterSchema = new mongoose.Schema({
   name: String,
   ff_id: String,
-  active: Boolean
+  status: String
 });
 
 FirefighterSchema.set("toJSON", {

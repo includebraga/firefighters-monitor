@@ -6,7 +6,7 @@ const API_URL =
 export const getFirefighters = () => axios.get(`${API_URL}/api/firefighters`);
 
 export const addActiveFirefighter = id =>
-  axios.post(`${API_URL}/api/firefighters/active/${id}`);
+  axios.put(`${API_URL}/api/firefighters/${id}`, { status: "active" });
 
 export const removeActiveFirefighter = id =>
-  axios.delete(`${API_URL}/api/firefighters/active/${id}`);
+  axios.put(`${API_URL}/api/firefighters/${id}`, { status: "inactive" });

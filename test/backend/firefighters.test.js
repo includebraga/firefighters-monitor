@@ -25,9 +25,9 @@ describe("Firefighters API", () => {
     const firefighters = JSON.parse(
       JSON.stringify(
         await Firefighter.insertMany([
-          { name: "Jonh Doe", active: false },
-          { name: "Mary Donina", active: false },
-          { name: "Joaquim Alberto", active: false }
+          { name: "Jonh Doe", status: "inactive" },
+          { name: "Mary Donina", status: "inactive" },
+          { name: "Joaquim Alberto", status: "inactive" }
         ])
       )
     );
@@ -41,37 +41,47 @@ describe("Firefighters API", () => {
     const firefighters = JSON.parse(
       JSON.stringify(
         await Firefighter.insertMany([
-          { name: "Jonh Doe", active: false },
-          { name: "Mary Donina", active: false },
-          { name: "Joaquim Alberto", active: false }
+          { name: "Jonh Doe", status: "inactive" },
+          { name: "Mary Donina", status: "inactive" },
+          { name: "Joaquim Alberto", status: "inactive" }
         ])
       )
     );
 
-    const response = await firefightersApi.addActiveFirefighter(
-      firefighters[2].id
+    const response = await firefightersApi.updateFirefighter(
+      firefighters[2].id,
+      {
+        status: "active"
+      }
     );
 
-    expect(response[2].active).to.be.true;
+    expect(response[2].name).to.eq(firefighters[2].name);
+    expect(response[2].status).to.eq("active");
   });
 
   it("should set firefighter number 3 to inactive", async () => {
     const firefighters = JSON.parse(
       JSON.stringify(
         await Firefighter.insertMany([
-          { name: "Jonh Doe", active: false },
-          { name: "Mary Donina", active: false },
-          { name: "Joaquim Alberto", active: false }
+          { name: "Jonh Doe", status: "inactive" },
+          { name: "Mary Donina", status: "inactive" },
+          { name: "Joaquim Alberto", status: "inactive" }
         ])
       )
     );
 
-    await firefightersApi.addActiveFirefighter(firefighters[2].id);
+    await firefightersApi.updateFirefighter(firefighters[2].id, {
+      status: "active"
+    });
 
-    const response = await firefightersApi.removeActiveFirefighter(
-      firefighters[2].id
+    const response = await firefightersApi.updateFirefighter(
+      firefighters[2].id,
+      {
+        status: "inactive"
+      }
     );
 
-    expect(response[2].active).to.be.false;
+    expect(response[2].name).to.eq(firefighters[2].name);
+    expect(response[2].status).to.eq("inactive");
   });
 });

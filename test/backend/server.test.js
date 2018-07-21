@@ -33,9 +33,9 @@ describe("Firefighters HTTP API", () => {
     const firefighters = JSON.parse(
       JSON.stringify(
         await Firefighter.insertMany([
-          { name: "Jonh Doe", active: false },
-          { name: "Mary Donina", active: false },
-          { name: "Joaquim Alberto", active: false }
+          { name: "Jonh Doe", status: "inactive" },
+          { name: "Mary Donina", status: "inactive" },
+          { name: "Joaquim Alberto", status: "inactive" }
         ])
       )
     );
@@ -49,37 +49,43 @@ describe("Firefighters HTTP API", () => {
     const firefighters = JSON.parse(
       JSON.stringify(
         await Firefighter.insertMany([
-          { name: "Jonh Doe", active: false },
-          { name: "Mary Donina", active: false },
-          { name: "Joaquim Alberto", active: false }
+          { name: "Jonh Doe", status: "inactive" },
+          { name: "Mary Donina", status: "inactive" },
+          { name: "Joaquim Alberto", status: "inactive" }
         ])
       )
     );
 
     const response = await chai
       .request(server)
-      .post(`/api/firefighters/active/${firefighters[2].id}`);
+      .put(`/api/firefighters/${firefighters[2].id}`)
+      .send({ status: "active" });
 
-    expect(response.body[2].active).to.be.true;
+    expect(response.body[2].name).to.eq(firefighters[2].name);
+    expect(response.body[2].status).to.eq("active");
   });
 
   it("should set firefighter number 3 to inactive", async () => {
     const firefighters = JSON.parse(
       JSON.stringify(
         await Firefighter.insertMany([
-          { name: "Jonh Doe", active: false },
-          { name: "Mary Donina", active: false },
-          { name: "Joaquim Alberto", active: false }
+          { name: "Jonh Doe", status: "inactive" },
+          { name: "Mary Donina", status: "inactive" },
+          { name: "Joaquim Alberto", status: "inactive" }
         ])
       )
     );
 
-    await firefightersApi.addActiveFirefighter(firefighters[2].id);
+    await firefightersApi.updateFirefighter(firefighters[2].id, {
+      status: "active"
+    });
 
     const response = await chai
       .request(server)
-      .delete(`/api/firefighters/active/${firefighters[2].id}`);
+      .put(`/api/firefighters/${firefighters[2].id}`)
+      .send({ status: "inactive" });
 
-    expect(response.body[2].active).to.be.false;
+    expect(response.body[2].name).to.eq(firefighters[2].name);
+    expect(response.body[2].status).to.eq("inactive");
   });
 });

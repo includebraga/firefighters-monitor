@@ -42,7 +42,7 @@ export default class FirefightersList extends Component {
             <b>{firefighter.name}</b>
             <input
               type="checkbox"
-              checked={firefighter.active}
+              checked={firefighter.status === "active"}
               data-tag={firefighter.id}
               onChange={this.onFirefighterCheckChange}
             />
