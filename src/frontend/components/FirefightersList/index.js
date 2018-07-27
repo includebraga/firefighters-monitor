@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 import withFirefighters from "../../containers/withFirefighters";
+import Firefighter from "../Firefighter";
 
 import "./index.css";
 
@@ -13,40 +14,30 @@ export default class FirefightersList extends Component {
       data: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
     }).isRequired,
     addActiveFirefighter: PropTypes.func.isRequired,
-    removeActiveFirefighter: PropTypes.func.isRequired
-  };
-
-  onFirefighterCheckChange = event => {
-    const { addActiveFirefighter, removeActiveFirefighter } = this.props;
-    const checkedId = event.target.attributes.getNamedItem("data-tag").value;
-    const isChecked = event.target.checked;
-
-    if (!checkedId) return;
-
-    if (isChecked) addActiveFirefighter(checkedId);
-
-    if (!isChecked) removeActiveFirefighter(checkedId);
+    removeActiveFirefighter: PropTypes.func.isRequired,
+    addBusyFirefighter: PropTypes.func.isRequired
   };
 
   render() {
-    const { firefighters } = this.props;
+    const {
+      addActiveFirefighter,
+      addBusyFirefighter,
+      firefighters,
+      removeActiveFirefighter
+    } = this.props;
 
     if (firefighters.loading) return null;
 
     return (
       <div styleName="root">
         {firefighters.data.map(firefighter => (
-          <div key={firefighter.id}>
-            <b>{firefighter.id}</b>
-            -
-            <b>{firefighter.name}</b>
-            <input
-              type="checkbox"
-              checked={firefighter.status === "active"}
-              data-tag={firefighter.id}
-              onChange={this.onFirefighterCheckChange}
-            />
-          </div>
+          <Firefighter
+            key={firefighter.id}
+            {...firefighter}
+            addBusyFirefighter={addBusyFirefighter}
+            addActiveFirefighter={addActiveFirefighter}
+            removeActiveFirefighter={removeActiveFirefighter}
+          />
         ))}
       </div>
     );

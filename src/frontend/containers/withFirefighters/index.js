@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import {
   getFirefighters,
   addActiveFirefighter,
+  addBusyFirefighter,
   removeActiveFirefighter
 } from "../../utils/api";
 
@@ -36,6 +37,12 @@ export default ChildComponent =>
       this.loadResponseIntoState(response);
     };
 
+    addBusyFirefighter = async id => {
+      const response = await addBusyFirefighter(id);
+
+      this.loadResponseIntoState(response);
+    };
+
     removeActiveFirefighter = async id => {
       const response = await removeActiveFirefighter(id);
 
@@ -47,6 +54,7 @@ export default ChildComponent =>
         <ChildComponent
           {...this.state}
           addActiveFirefighter={this.addActiveFirefighter}
+          addBusyFirefighter={this.addBusyFirefighter}
           removeActiveFirefighter={this.removeActiveFirefighter}
           {...this.props}
         />
