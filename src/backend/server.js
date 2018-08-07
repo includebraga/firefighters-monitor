@@ -1,13 +1,13 @@
 const compression = require("compression");
+const cors = require("cors");
 const express = require("express");
 const helmet = require("helmet");
 const path = require("path");
-const cors = require("cors");
+
+const auth = require("./auth");
 const firefighters = require("./firefighters");
 
 const app = express();
-
-if (process.env.NODE_ENV !== "production") app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -17,6 +17,13 @@ app.use(compression());
 app.use(
   express.static(path.join(__dirname, "../../dist/"), { maxAge: 86400000 })
 );
+
+if (process.env.NODE_ENV !== "production") {
+  app.use(cors());
+} else {
+  auth.ensureBasicAuthCredentials();
+  app.use(auth.basicAuth);
+}
 
 app.get("/api/firefighters", async (req, res) => {
   res.send(await firefighters.getFirefighters());
