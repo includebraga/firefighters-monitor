@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import "./index.css";
 
 const label = {
-  active: "disponível",
+  active: "Disponível",
   inactive: "",
   busy: "Serviço"
 };

@@ -12,9 +12,11 @@
   "scripts": {
     "heroku-postbuild": "webpack --mode production",
     "start": "node src/backend/index.js",
-    "dev-server": "NR_PROCESSES=1 nodemon src/backend/index.js",
-    "dev-client": "webpack-dev-server --mode development --hot",
+    "dev-server": "NR_PROCESSES=1 nodemon --ignore src/frontend src/backend/index.js",
+    "dev-client": "webpack --watch --mode development",
+    "dev-client-hot": "webpack-dev-server --mode development --hot",
     "dev": "npm-run-all --parallel dev-server dev-client",
+    "dev-hot": "npm-run-all --parallel dev-server dev-client-hot",
     "lint": "eslint src test",
     "lint-fix": "eslint --fix src test",
     "lint-styles": "stylelint frontend/components/**/*.css",
