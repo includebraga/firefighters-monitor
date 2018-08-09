@@ -9,18 +9,19 @@ For dependencies:
 yarn install
 ```
 
-To run the server and the client: 
+To run the server and the client:
 ```
 yarn dev
 ```
-The script above will run the express server and the webpack-dev-server at the sime time. 
-The server is at `localhost:3000` but the client code is actually served at `localhost:8080`. 
-Use the second address to have access to hot module reloading.
+The script above will run the express server and webpack in watch mode at the same time.
+You can then access the app `localhost:3000`
+
+If you want to run using `react-hot-loader` you will have to run `yarn dev-hot` and access the app at `localhost:8080`. This serves the app from a custom server of `webpack-dev-server`, so if you are developing some backend code you might want to run the server without the `hot` mode.
 
 Some considerations:
 * CORS is enabled in development and disabled in production, for safety. During development we need cors to access the api from a
 different host.
-* The client has hot reloading via webpack's HMR and React Hot Loader. The server doesn't have hot reloading, but we use nodemon to
+* The client has hot reloading via webpack's HMR (when using `yarn dev-hot`) and React Hot Loader. The server doesn't have hot reloading, but we use nodemon to
 restart the server when we change code.
 
 To test the app run:
