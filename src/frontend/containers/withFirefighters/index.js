@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 
 import {
-  getFirefighters,
   addActiveFirefighter,
   addBusyFirefighter,
-  removeActiveFirefighter
+  getFirefighters,
+  removeActiveFirefighter,
+  updateFirefighterDuty
 } from "../../utils/api";
 
 export default ChildComponent =>
@@ -49,6 +50,12 @@ export default ChildComponent =>
       this.loadResponseIntoState(response);
     };
 
+    updateFirefighterDuty = async (id, isOnDuty) => {
+      const response = await updateFirefighterDuty(id, isOnDuty);
+
+      this.loadResponseIntoState(response);
+    };
+
     render() {
       return (
         <ChildComponent
@@ -56,6 +63,7 @@ export default ChildComponent =>
           addActiveFirefighter={this.addActiveFirefighter}
           addBusyFirefighter={this.addBusyFirefighter}
           removeActiveFirefighter={this.removeActiveFirefighter}
+          updateFirefighterDuty={this.updateFirefighterDuty}
           {...this.props}
         />
       );
