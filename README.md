@@ -13,7 +13,7 @@ To run the server and the client:
 ```
 yarn dev
 ```
-The script above will run the express server and webpack in watch mode at the sime time.
+The script above will run the express server and webpack in watch mode at the same time.
 You can then access the app `localhost:3000`
 
 If you want to run using `react-hot-loader` you will have to run `yarn dev-hot` and access the app at `localhost:8080`. This serves the app from a custom server of `webpack-dev-server`, so if you are developing some backend code you might want to run the server without the `hot` mode.
