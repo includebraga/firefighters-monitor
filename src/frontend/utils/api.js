@@ -8,9 +8,15 @@ export const getFirefighters = () => axios.get(`${API_URL}/api/firefighters`);
 export const addActiveFirefighter = id =>
   axios.put(`${API_URL}/api/firefighters/${id}`, { status: "active" });
 
-const updateFirefighter = (id, state) =>
+const updateFirefighterStatus = (id, state) =>
   axios.put(`${API_URL}/api/firefighters/${id}`, { status: state });
 
-export const removeActiveFirefighter = id => updateFirefighter(id, "inactive");
+export const removeActiveFirefighter = id =>
+  updateFirefighterStatus(id, "inactive");
 
-export const addBusyFirefighter = id => updateFirefighter(id, "busy");
+export const addBusyFirefighter = id => updateFirefighterStatus(id, "busy");
+
+export const updateFirefighterDuty = (id, isOnDuty) =>
+  axios.put(`${API_URL}/api/firefighters/${id}`, {
+    isOnDuty
+  });

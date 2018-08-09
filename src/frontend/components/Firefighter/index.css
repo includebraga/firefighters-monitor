@@ -2,17 +2,18 @@
 @import '../../styles/colors';
 
 .root {
+  position: relative;
+  user-select: none;
+
   width: 120px;
-  height: 88px;
+  height: 100px;
 
   padding: 0;
   margin: 10px;
 
-  border: 2px solid black;
+  border: 4px solid black;
   border-radius: 4px;
 
-  box-shadow: 0 4px 10px 0 rgba(43, 78, 112, 0.15),
-    0 1px 4px 0 rgba(43, 78, 112, 0.1);
   cursor: pointer;
 
   outline: none;
@@ -28,9 +29,9 @@
 
 .root:hover,
 .root:focus {
-  border: solid 4px $color-fire-red;
+  border: 4px solid $color-blue;
 
-  transform: translate(0, 2px);
+  transform: translate(0, -6px);
 }
 
 .active {
@@ -44,8 +45,8 @@
 }
 
 .busy {
-  background-color: $color-orange;
-  border-color: $color-orange;
+  background-color: $color-fire-red;
+  border-color: $color-fire-red;
 }
 
 .block {
@@ -61,8 +62,26 @@
   font-weight: bold;
 }
 
+.duty {
+  position: absolute;
+  top: 40%;
+  left: 10%;
+  z-index: 1;
+
+  width: 80%;
+  height: auto;
+
+  background-color: $color-yellow;
+  border-radius: 12px;
+  color: $color-black;
+
+  font-size: $font-size-small;
+  font-weight: $font-weight-regular;
+  line-height: $line-height-small;
+}
+
 .status {
-  background-color: black;
+  background-color: #161925;
   color: white;
 
   font-family: $font-family-mono;
@@ -70,6 +89,4 @@
   font-weight: $font-weight-bold;
   font-weight: $font-weight-regular;
   line-height: $line-height-small;
-
-  text-transform: uppercase;
 }

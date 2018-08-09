@@ -12,7 +12,8 @@ const mongoose = require("mongoose");
 const FirefighterSchema = new mongoose.Schema({
   name: String,
   ff_id: String,
-  status: String
+  status: String,
+  isOnDuty: Boolean
 });
 
 FirefighterSchema.set("toJSON", {

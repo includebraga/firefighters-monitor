@@ -15,7 +15,8 @@ export default class FirefightersList extends Component {
     }).isRequired,
     addActiveFirefighter: PropTypes.func.isRequired,
     removeActiveFirefighter: PropTypes.func.isRequired,
-    addBusyFirefighter: PropTypes.func.isRequired
+    addBusyFirefighter: PropTypes.func.isRequired,
+    updateFirefighterDuty: PropTypes.func.isRequired
   };
 
   render() {
@@ -23,7 +24,8 @@ export default class FirefightersList extends Component {
       addActiveFirefighter,
       addBusyFirefighter,
       firefighters,
-      removeActiveFirefighter
+      removeActiveFirefighter,
+      updateFirefighterDuty
     } = this.props;
 
     if (firefighters.loading) return null;
@@ -37,6 +39,7 @@ export default class FirefightersList extends Component {
             addBusyFirefighter={addBusyFirefighter}
             addActiveFirefighter={addActiveFirefighter}
             removeActiveFirefighter={removeActiveFirefighter}
+            updateFirefighterDuty={updateFirefighterDuty}
           />
         ))}
       </div>
