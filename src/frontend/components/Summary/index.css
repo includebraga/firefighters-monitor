@@ -1,0 +1,50 @@
+@import '../../styles/typography';
+@import '../../styles/colors';
+
+.root {
+  display: flex;
+  flex-direction: column;
+  max-width: 15%;
+  margin-top: 10px;
+
+  font-family: $font-family-mono;
+  font-size: $font-size-large;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-large;
+  text-decoration: none;
+}
+
+.names {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -12px;
+}
+
+.name {
+  margin: 12px;
+}
+
+.block {
+  margin-bottom: 24px;
+}
+
+.duty {
+  width: 100%;
+  margin-bottom: 12px;
+
+  border-bottom: 4px solid $color-yellow;
+}
+
+.busy {
+  width: 100%;
+  margin-bottom: 12px;
+
+  border-bottom: 4px solid $color-fire-red;
+}
+
+.active {
+  width: 100%;
+  margin-bottom: 12px;
+
+  border-bottom: 4px solid $color-leaf-green;
+}

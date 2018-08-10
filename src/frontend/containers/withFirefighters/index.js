@@ -18,9 +18,13 @@ export default ChildComponent =>
     };
 
     async componentDidMount() {
-      const response = await getFirefighters();
+      try {
+        const response = await getFirefighters();
 
-      this.loadResponseIntoState(response);
+        this.loadResponseIntoState(response);
+      } catch (error) {
+        this.setState({ error });
+      }
     }
 
     loadResponseIntoState = response => {
@@ -33,27 +37,43 @@ export default ChildComponent =>
     };
 
     addActiveFirefighter = async id => {
-      const response = await addActiveFirefighter(id);
+      try {
+        const response = await addActiveFirefighter(id);
 
-      this.loadResponseIntoState(response);
+        this.loadResponseIntoState(response);
+      } catch (error) {
+        this.setState({ error });
+      }
     };
 
     addBusyFirefighter = async id => {
-      const response = await addBusyFirefighter(id);
+      try {
+        const response = await addBusyFirefighter(id);
 
-      this.loadResponseIntoState(response);
+        this.loadResponseIntoState(response);
+      } catch (error) {
+        this.setState({ error });
+      }
     };
 
     removeActiveFirefighter = async id => {
-      const response = await removeActiveFirefighter(id);
+      try {
+        const response = await removeActiveFirefighter(id);
 
-      this.loadResponseIntoState(response);
+        this.loadResponseIntoState(response);
+      } catch (error) {
+        this.setState({ error });
+      }
     };
 
     updateFirefighterDuty = async (id, isOnDuty) => {
-      const response = await updateFirefighterDuty(id, isOnDuty);
+      try {
+        const response = await updateFirefighterDuty(id, isOnDuty);
 
-      this.loadResponseIntoState(response);
+        this.loadResponseIntoState(response);
+      } catch (error) {
+        this.setState({ error });
+      }
     };
 
     render() {
