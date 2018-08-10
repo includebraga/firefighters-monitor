@@ -1,8 +1,9 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 
 import withFirefighters from "../../containers/withFirefighters";
 import Firefighter from "../Firefighter";
+import Summary from "../Summary";
 
 import "./index.css";
 
@@ -31,18 +32,21 @@ export default class FirefightersList extends Component {
     if (firefighters.loading) return null;
 
     return (
-      <div styleName="root">
-        {firefighters.data.map(firefighter => (
-          <Firefighter
-            key={firefighter.id}
-            {...firefighter}
-            addBusyFirefighter={addBusyFirefighter}
-            addActiveFirefighter={addActiveFirefighter}
-            removeActiveFirefighter={removeActiveFirefighter}
-            updateFirefighterDuty={updateFirefighterDuty}
-          />
-        ))}
-      </div>
+      <Fragment>
+        <div styleName="list">
+          {firefighters.data.map(firefighter => (
+            <Firefighter
+              key={firefighter.id}
+              {...firefighter}
+              addBusyFirefighter={addBusyFirefighter}
+              addActiveFirefighter={addActiveFirefighter}
+              removeActiveFirefighter={removeActiveFirefighter}
+              updateFirefighterDuty={updateFirefighterDuty}
+            />
+          ))}
+        </div>
+        <Summary {...this.props} />
+      </Fragment>
     );
   }
 }
