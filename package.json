@@ -7,7 +7,8 @@
   "license": "MIT",
   "private": true,
   "engines": {
-    "node": ">=9.x"
+    "node": ">=9.x",
+    "yarn": ">=1"
   },
   "scripts": {
     "heroku-postbuild": "webpack --mode production",
