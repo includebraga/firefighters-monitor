@@ -13,6 +13,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(compression());
+
+auth.ensureBasicAuthCredentials();
+
+app.all("*", (req, res, next) => {
+  if (req.path !== "/ping") {
+    return auth.basicAuth(req, res, next);
+  }
+
+  return next();
+});
+
 app.use(
   express.static(path.join(__dirname, "../../../dist/"), { maxAge: 86400000 })
 );
@@ -20,15 +31,6 @@ app.use(
 if (process.env.NODE_ENV !== "production") {
   app.use(cors());
 } else {
-  auth.ensureBasicAuthCredentials();
-
-  app.all("*", (req, res, next) => {
-    if (req.path !== "/ping") {
-      return auth.basicAuth(req, res, next);
-    }
-
-    return next();
-  });
 }
 
 app.get("/ping", async (req, res) => {
