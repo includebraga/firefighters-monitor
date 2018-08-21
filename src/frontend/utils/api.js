@@ -3,6 +3,8 @@ import axios from "axios";
 const API_URL =
   process.env.NODE_ENV === "development" ? "http://localhost:3000" : "";
 
+export { API_URL };
+
 export const getFirefighters = () => axios.get(`${API_URL}/api/firefighters`);
 
 export const addActiveFirefighter = id =>

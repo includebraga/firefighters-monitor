@@ -1,6 +1,7 @@
 {
   "name": "firefighters-monitor",
   "scripts": {
+    "postdeploy": "node src/seed.js"
   },
   "env": {
     "BASIC_AUTH_PASSWORD": {

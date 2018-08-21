@@ -1,28 +1,14 @@
-const cluster = require("cluster");
-const numCpus = require("os").cpus().length;
-const app = require("./web/server.js");
+const http = require("http");
+const app = require("./web/server");
+const socket = require("./web/socket");
 const { connect } = require("./config/mongo");
 
 const port = process.env.PORT || 3000;
-const numProcesses = process.env.NR_PROCESSES || numCpus;
+const server = http.createServer(app);
 
-if (cluster.isMaster) {
-  for (let i = 0; i < numProcesses; i += 1) {
-    cluster.fork();
-  }
-} else {
+server.listen(port, () => {
   connect();
+  socket(server);
 
-  app.listen(port, () =>
-    console.log(`firefighters-monitor listening on port ${port}`)
-  );
-}
-
-cluster.on("exit", (worker, code, signal) => {
-  console.log(
-    "Worker %d died with code/signal %s. Restarting worker...",
-    worker.process.pid,
-    signal || code
-  );
-  cluster.fork();
+  console.log(`Starting server instance @ port ${port}`);
 });
