@@ -4,10 +4,12 @@ Webapp to register shifts on firefighters headquarters.
 
 ## Development
 
-For dependencies:
+To setup the project:
 ```
-yarn install
+bin/setup
 ```
+
+This will install the dependencies and setup the `.envrc` file.
 
 To run the server and the client:
 ```
