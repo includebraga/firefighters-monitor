@@ -1,6 +1,6 @@
 const cluster = require("cluster");
 const numCpus = require("os").cpus().length;
-const app = require("./server.js");
+const app = require("./web/server.js");
 const { connect } = require("./config/mongo");
 
 const port = process.env.PORT || 3000;

@@ -1,4 +1,5 @@
-const { Firefighter } = require("./config/mongo");
+const { Firefighter } = require("../models");
+const historyRepo = require("./history");
 
 exports.updateFirefighter = async (id, firefighterParams) => {
   const firefighter = await Firefighter.findOneAndUpdate(
@@ -7,6 +8,8 @@ exports.updateFirefighter = async (id, firefighterParams) => {
   );
 
   if (!firefighter) return null;
+
+  historyRepo.createHistory(firefighter, firefighterParams);
 
   return exports.getFirefighters();
 };

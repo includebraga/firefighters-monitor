@@ -5,7 +5,7 @@ const helmet = require("helmet");
 const path = require("path");
 
 const auth = require("./auth");
-const firefighters = require("./firefighters");
+const firefighters = require("../repo/firefighters");
 
 const app = express();
 

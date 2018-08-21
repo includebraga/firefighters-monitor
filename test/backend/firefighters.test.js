@@ -1,10 +1,7 @@
 const { expect } = require("chai");
-const {
-  connect,
-  mongoose,
-  Firefighter
-} = require("../../src/backend/config/mongo");
-const firefightersApi = require("../../src/backend/firefighters");
+const { connect, mongoose } = require("../../src/backend/config/mongo");
+const { Firefighter } = require("../../src/backend/models");
+const firefightersApi = require("../../src/backend/repo/firefighters");
 
 describe("Firefighters API", () => {
   before(async () => {
