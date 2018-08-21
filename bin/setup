@@ -2,4 +2,4 @@
 
 yarn install
 
-cp .envrc.sample .envrc
+cp .env.sample .env

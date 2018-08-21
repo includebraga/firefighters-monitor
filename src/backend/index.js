@@ -1,3 +1,6 @@
+// Load .env file
+if (process.env.NODE_ENV != "production") require("dotenv").config(); // eslint-disable-line
+
 const cluster = require("cluster");
 const numCpus = require("os").cpus().length;
 const app = require("./server.js");
