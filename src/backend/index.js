@@ -1,5 +1,7 @@
 // Load .env file
-if (process.env.NODE_ENV != "production") require("dotenv").config(); // eslint-disable-line
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config({ path: "./.envrc" }); // eslint-disable-line
+}
 
 const cluster = require("cluster");
 const numCpus = require("os").cpus().length;
