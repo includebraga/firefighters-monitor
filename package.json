@@ -23,7 +23,7 @@
     "lint-fix": "eslint --fix src test",
     "lint-styles": "stylelint frontend/components/**/*.css",
     "lint-styles-fix": "stylelint frontend/components/**/*.css --fix",
-    "test": "mocha test/**/*.js"
+    "test": "NODE_ENV=test mocha test/**/*.js"
   },
   "dependencies": {
     "autoprefixer": "^8.6.4",

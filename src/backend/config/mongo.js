@@ -9,26 +9,6 @@ const MONGO_URL =
 
 const mongoose = require("mongoose");
 
-const FirefighterSchema = new mongoose.Schema({
-  name: String,
-  ff_id: String,
-  status: String,
-  isOnDuty: Boolean
-});
-
-FirefighterSchema.set("toJSON", {
-  transform: (_doc, object, _options) => {
-    const transformedObject = object;
-
-    transformedObject.id = transformedObject._id;
-    delete transformedObject._id;
-    delete transformedObject.__v;
-  }
-});
-
-// Documents
-exports.Firefighter = mongoose.model("Firefighter", FirefighterSchema);
-
 exports.connect = () =>
   mongoose.connect(
     MONGO_URL,

@@ -1,4 +1,5 @@
-const { connect, Firefighter } = require("../src/backend/config/mongo");
+const { connect } = require("../src/backend/config/mongo");
+const { Firefighter } = require("../src/backend/models");
 
 const firefightersNumbers = [
   5,

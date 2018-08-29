@@ -1,15 +1,12 @@
 const chai = require("chai");
 const chaiHttp = require("chai-http");
-const {
-  connect,
-  mongoose,
-  Firefighter
-} = require("../../src/backend/config/mongo");
-const server = require("../../src/backend/server");
-const firefightersApi = require("../../src/backend/firefighters");
+const { connect, mongoose } = require("../../src/backend/config/mongo");
+const { Firefighter } = require("../../src/backend/models");
+const server = require("../../src/backend/web/server");
+const firefightersApi = require("../../src/backend/repo/firefighters");
 
 const { expect } = chai;
-const app = server.listen(3000);
+const app = server.listen(3001);
 
 chai.use(chaiHttp);
 
