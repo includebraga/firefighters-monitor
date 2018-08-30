@@ -1,12 +1,7 @@
 import React, { Component } from "react";
+import io from "socket.io-client";
 
-import {
-  addActiveFirefighter,
-  addBusyFirefighter,
-  getFirefighters,
-  removeActiveFirefighter,
-  updateFirefighterDuty
-} from "../../utils/api";
+import { API_URL } from "../../utils/api";
 
 export default ChildComponent =>
   class WithFirefighters extends Component {
@@ -17,14 +12,16 @@ export default ChildComponent =>
       }
     };
 
-    async componentDidMount() {
-      try {
-        const response = await getFirefighters();
+    componentDidMount() {
+      this.socket = io(API_URL);
 
-        this.loadResponseIntoState(response);
-      } catch (error) {
-        this.setState({ error });
-      }
+      this.socket.on("firefighters", response => {
+        this.loadResponseIntoState({ data: response });
+      });
+    }
+
+    componentWillUnmount() {
+      this.socket.disconnect();
     }
 
     loadResponseIntoState = response => {
@@ -36,44 +33,32 @@ export default ChildComponent =>
       });
     };
 
-    addActiveFirefighter = async id => {
-      try {
-        const response = await addActiveFirefighter(id);
-
-        this.loadResponseIntoState(response);
-      } catch (error) {
-        this.setState({ error });
-      }
+    addActiveFirefighter = id => {
+      this.socket.emit("update_firefighter", {
+        id,
+        payload: { status: "active" }
+      });
     };
 
     addBusyFirefighter = async id => {
-      try {
-        const response = await addBusyFirefighter(id);
-
-        this.loadResponseIntoState(response);
-      } catch (error) {
-        this.setState({ error });
-      }
+      this.socket.emit("update_firefighter", {
+        id,
+        payload: { status: "busy" }
+      });
     };
 
     removeActiveFirefighter = async id => {
-      try {
-        const response = await removeActiveFirefighter(id);
-
-        this.loadResponseIntoState(response);
-      } catch (error) {
-        this.setState({ error });
-      }
+      this.socket.emit("update_firefighter", {
+        id,
+        payload: { status: "inactive" }
+      });
     };
 
     updateFirefighterDuty = async (id, isOnDuty) => {
-      try {
-        const response = await updateFirefighterDuty(id, isOnDuty);
-
-        this.loadResponseIntoState(response);
-      } catch (error) {
-        this.setState({ error });
-      }
+      this.socket.emit("update_firefighter", {
+        id,
+        payload: { isOnDuty }
+      });
     };
 
     render() {

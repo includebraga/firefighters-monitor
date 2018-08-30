@@ -14,10 +14,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(compression());
 
-app.use(
-  express.static(path.join(__dirname, "../../../dist/"), { maxAge: 86400000 })
-);
-
 if (process.env.NODE_ENV !== "production") {
   app.use(cors());
 } else {
@@ -31,6 +27,10 @@ if (process.env.NODE_ENV !== "production") {
     return next();
   });
 }
+
+app.use(
+  express.static(path.join(__dirname, "../../../dist/"), { maxAge: 86400000 })
+);
 
 app.get("/ping", async (req, res) => {
   res.status(200).send();
