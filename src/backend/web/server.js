@@ -15,7 +15,7 @@ app.use(helmet());
 app.use(compression());
 
 app.use(
-  express.static(path.join(__dirname, "../../dist/"), { maxAge: 86400000 })
+  express.static(path.join(__dirname, "../../../dist/"), { maxAge: 86400000 })
 );
 
 if (process.env.NODE_ENV !== "production") {
