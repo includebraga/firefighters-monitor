@@ -1,11 +1,13 @@
 const { History } = require("../models");
+const historyCalculator = require("./historyCalculator");
 
-exports.createHistory = async (firefighter, newParams) => {
-  const oldParams = JSON.parse(JSON.stringify(firefighter));
+exports.createHistory = async (oldFirefighter, newFirefighter) => {
+  const oldParams = JSON.parse(JSON.stringify(oldFirefighter));
+  const newParams = JSON.parse(JSON.stringify(newFirefighter));
   const history = new History({
-    firefighter,
+    firefighter: oldFirefighter,
     before: oldParams,
-    after: { ...oldParams, ...newParams }
+    after: newParams
   });
 
   await history.save();
@@ -13,8 +15,8 @@ exports.createHistory = async (firefighter, newParams) => {
   return history;
 };
 
-exports.getHistoryOfFirefighter = async firefighter => {
-  const history = await History.find({ firefighter });
+exports.getHistoryOfFirefighter = async firefighterId => {
+  const history = await History.find({ firefighter: firefighterId });
 
-  return JSON.parse(JSON.stringify(history));
+  return historyCalculator.getElapsedTimes(history);
 };
