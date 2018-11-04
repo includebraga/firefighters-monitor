@@ -4,7 +4,10 @@
 .root {
   display: flex;
   flex-direction: column;
-  max-width: 15%;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 20%;
+  padding-right: 10px;
   margin-top: 10px;
 
   font-family: $font-family-mono;
@@ -47,4 +50,8 @@
   margin-bottom: 12px;
 
   border-bottom: 4px solid $color-leaf-green;
+}
+
+.tree {
+  width: 50%;
 }
