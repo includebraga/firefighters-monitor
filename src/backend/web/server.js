@@ -6,6 +6,7 @@ const path = require("path");
 
 const auth = require("./auth");
 const firefighters = require("../repo/firefighters");
+const firefightersHistory = require("../repo/history");
 
 const app = express();
 
@@ -38,6 +39,12 @@ app.get("/ping", async (req, res) => {
 
 app.get("/api/firefighters", async (req, res) => {
   res.send(await firefighters.getFirefighters());
+});
+
+app.get("/api/firefighters/:id/history", async (req, res) => {
+  const firefighterId = req.params.id;
+
+  res.send(await firefightersHistory.getHistoryOfFirefighter(firefighterId));
 });
 
 app.put("/api/firefighters/:id", async (req, res) => {
