@@ -3,6 +3,7 @@
 .root {
   display: flex;
   flex-wrap: wrap;
+  height: 100vh;
   padding-top: 12px;
   margin: 0 auto;
 
