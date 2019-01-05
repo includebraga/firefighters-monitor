@@ -3,7 +3,8 @@
 
 .root {
   display: flex;
-  max-width: 20%;
+  flex-direction: column;
+  width: 20%;
   padding-right: 10px;
   margin-top: 10px;
 
@@ -25,6 +26,7 @@
 }
 
 .block {
+  width: 100%;
   margin-bottom: 24px;
 }
 
@@ -51,4 +53,12 @@
 
 .tree {
   width: 50%;
+}
+
+.empty {
+  content: '';
+  
+  width: 1px;
+  height: $line-height-large;
+
 }

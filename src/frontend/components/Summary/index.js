@@ -34,6 +34,8 @@ class Summary extends Component {
     </span>
   );
 
+  renderEmptyState = () => <div styleName="empty" />;
+
   render() {
     const { firefighters } = this.props;
     const { getActive, getBusy, getOnDuty } = this;
@@ -46,31 +48,35 @@ class Summary extends Component {
 
     return (
       <div styleName="root">
-        <div>
-          <div styleName="block">
-            <p styleName="duty">Piquete</p>
+        <div styleName="block">
+          <p styleName="duty">Piquete</p>
+          {!_.isEmpty(onDuty) ? (
             <div styleName="names">
-              {onDuty
-                ? onDuty.map(firefighter => this.renderName(firefighter))
-                : null}
+              {onDuty.map(firefighter => this.renderName(firefighter))}
             </div>
-          </div>
-          <div styleName="block">
-            <p styleName="busy">Serviço</p>
+          ) : (
+            this.renderEmptyState()
+          )}
+        </div>
+        <div styleName="block">
+          <p styleName="busy">Serviço</p>
+          {!_.isEmpty(busy) ? (
             <div styleName="names">
-              {busy
-                ? busy.map(firefighter => this.renderName(firefighter))
-                : null}
-            </div>{" "}
-          </div>
-          <div styleName="block">
-            <p styleName="active">Ativo</p>
-            <div styleName="names">
-              {active
-                ? active.map(firefighter => this.renderName(firefighter))
-                : null}
+              {busy.map(firefighter => this.renderName(firefighter))}
             </div>
-          </div>
+          ) : (
+            this.renderEmptyState()
+          )}
+        </div>
+        <div styleName="block">
+          <p styleName="active">Ativo</p>
+          {!_.isEmpty(active) ? (
+            <div styleName="names">
+              {active.map(firefighter => this.renderName(firefighter))}{" "}
+            </div>
+          ) : (
+            this.renderEmptyState()
+          )}
         </div>
       </div>
     );
