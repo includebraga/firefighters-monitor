@@ -3,11 +3,10 @@ import PropTypes from "prop-types";
 import _ from "lodash";
 
 import withFirefighters from "../../containers/withFirefighters";
-import tree from "./tree.svg";
 import "./index.css";
 
 @withFirefighters
-export default class Summary extends Component {
+class Summary extends Component {
   static propTypes = {
     firefighters: PropTypes.shape({
       loading: PropTypes.bool.isRequired,
@@ -29,19 +28,11 @@ export default class Summary extends Component {
 
   getOnDuty = () => _.filter(this.getfirefightersData(), { isOnDuty: true });
 
-  treeComp = () => tree;
-
   renderName = firefighter => (
     <span styleName="name" key={firefighter.name}>
       {firefighter.name}
     </span>
   );
-
-  /* eslint-disable */
-  renderTree = () => (
-    <div styleName="tree" dangerouslySetInnerHTML={{ __html: tree }} />
-  );
-  /* eslint-enable */
 
   render() {
     const { firefighters } = this.props;
@@ -81,8 +72,9 @@ export default class Summary extends Component {
             </div>
           </div>
         </div>
-        {this.renderTree()}
       </div>
     );
   }
 }
+
+export default Summary;

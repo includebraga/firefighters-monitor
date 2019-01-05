@@ -8,7 +8,7 @@ import Summary from "../Summary";
 import "./index.css";
 
 @withFirefighters
-export default class FirefightersList extends Component {
+class FirefightersList extends Component {
   static propTypes = {
     firefighters: PropTypes.shape({
       loading: PropTypes.bool.isRequired,
@@ -50,3 +50,5 @@ export default class FirefightersList extends Component {
     );
   }
 }
+
+export default FirefightersList;

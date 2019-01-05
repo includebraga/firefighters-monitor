@@ -29,8 +29,6 @@
 
 .root:hover,
 .root:focus {
-  border: 4px solid $color-blue;
-
   transform: translate(0, -6px);
 }
 
