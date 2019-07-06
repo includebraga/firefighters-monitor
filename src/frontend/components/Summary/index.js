@@ -26,7 +26,7 @@ class Summary extends Component {
 
   getBusy = () => _.filter(this.getfirefightersData(), { status: "busy" });
 
-  getOnDuty = () => _.filter(this.getfirefightersData(), { isOnDuty: true });
+  getOnDuty = type => _.filter(this.getfirefightersData(), { dutyType: type });
 
   renderName = firefighter => (
     <span styleName="name" key={firefighter.name}>
@@ -44,35 +44,57 @@ class Summary extends Component {
 
     const active = getActive();
     const busy = getBusy();
-    const onDuty = getOnDuty();
+    const piquet = getOnDuty("piquet");
+    const eip = getOnDuty("eip");
+    const elac = getOnDuty("elac");
 
     return (
       <div styleName="root">
         <div styleName="block">
-          <p styleName="duty">Piquete</p>
-          {!_.isEmpty(onDuty) ? (
+          <div styleName="block">
+            <p styleName="active">Disponível</p>
+            {!_.isEmpty(active) ? (
+              <div styleName="names">
+                {active.map(firefighter => this.renderName(firefighter))}
+              </div>
+            ) : (
+              this.renderEmptyState()
+            )}
+          </div>
+          <div styleName="block">
+            <p styleName="busy">Serviço</p>
+            {!_.isEmpty(busy) ? (
+              <div styleName="names">
+                {busy.map(firefighter => this.renderName(firefighter))}
+              </div>
+            ) : (
+              this.renderEmptyState()
+            )}
+          </div>
+          <p styleName="piquet">Piquete</p>
+          {!_.isEmpty(piquet) ? (
             <div styleName="names">
-              {onDuty.map(firefighter => this.renderName(firefighter))}
+              {piquet.map(firefighter => this.renderName(firefighter))}
             </div>
           ) : (
             this.renderEmptyState()
           )}
         </div>
         <div styleName="block">
-          <p styleName="busy">Serviço</p>
-          {!_.isEmpty(busy) ? (
+          <p styleName="elac">ELAC</p>
+          {!_.isEmpty(elac) ? (
             <div styleName="names">
-              {busy.map(firefighter => this.renderName(firefighter))}
+              {elac.map(firefighter => this.renderName(firefighter))}
             </div>
           ) : (
             this.renderEmptyState()
           )}
         </div>
         <div styleName="block">
-          <p styleName="active">Ativo</p>
-          {!_.isEmpty(active) ? (
+          <p styleName="eip">EIP</p>
+          {!_.isEmpty(eip) ? (
             <div styleName="names">
-              {active.map(firefighter => this.renderName(firefighter))}{" "}
+              {eip.map(firefighter => this.renderName(firefighter))}
             </div>
           ) : (
             this.renderEmptyState()

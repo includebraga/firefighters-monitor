@@ -54,10 +54,10 @@ export default ChildComponent =>
       });
     };
 
-    updateFirefighterDuty = async (id, isOnDuty) => {
+    updateFirefighterDuty = async (id, dutyType) => {
       this.socket.emit("update_firefighter", {
         id,
-        payload: { isOnDuty }
+        payload: { dutyType }
       });
     };
 

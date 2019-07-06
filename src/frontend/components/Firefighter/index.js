@@ -6,7 +6,10 @@ import "./index.css";
 const label = {
   active: "Disponível",
   inactive: "",
-  busy: "Serviço"
+  busy: "Serviço",
+  piquet: "Piquete",
+  elac: "ELAC",
+  eip: "EIP"
 };
 
 class Firefighter extends PureComponent {
@@ -37,9 +40,16 @@ class Firefighter extends PureComponent {
   };
 
   handleDutyChange = () => {
-    const { updateFirefighterDuty, id, isOnDuty } = this.props;
+    const { id, dutyType: currentDuty, updateFirefighterDuty } = this.props;
 
-    return updateFirefighterDuty(id, !isOnDuty);
+    const nextDuty = {
+      none: "piquet",
+      piquet: "elac",
+      elac: "eip",
+      eip: "none"
+    };
+
+    return updateFirefighterDuty(id, nextDuty[currentDuty]);
   };
 
   handleFirefighterClick = evt => {
@@ -51,7 +61,7 @@ class Firefighter extends PureComponent {
   };
 
   render() {
-    const { id, name, status, isOnDuty } = this.props;
+    const { id, name, status, dutyType } = this.props;
 
     return (
       <button
@@ -62,7 +72,9 @@ class Firefighter extends PureComponent {
         onMouseDown={this.handleFirefighterClick}
       >
         <div styleName="block name">{name}</div>
-        {isOnDuty ? <div styleName="block duty">Piquete</div> : null}
+        {dutyType !== "none" ? (
+          <div styleName={`block duty ${dutyType}`}>{label[dutyType]}</div>
+        ) : null}
         <div styleName="block status">{label[status]}</div>
       </button>
     );
@@ -73,7 +85,7 @@ Firefighter.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
-  isOnDuty: PropTypes.bool.isRequired,
+  dutyType: PropTypes.string.isRequired,
   addActiveFirefighter: PropTypes.func.isRequired,
   removeActiveFirefighter: PropTypes.func.isRequired,
   addBusyFirefighter: PropTypes.func.isRequired,

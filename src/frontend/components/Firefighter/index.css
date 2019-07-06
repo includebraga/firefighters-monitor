@@ -78,6 +78,18 @@
   line-height: $line-height-small;
 }
 
+.piquet {
+  background-color: $color-yellow;
+}
+
+.elac {
+  background-color: $color-roasted-yellow;
+}
+
+.eip {
+  background-color: $color-purple;
+}
+
 .status {
   background-color: #161925;
   color: white;

@@ -5,7 +5,7 @@ const FirefighterSchema = new mongoose.Schema(
     name: String,
     ff_id: String,
     status: String,
-    isOnDuty: Boolean
+    dutyType: String
   },
   { timestamps: true }
 );
