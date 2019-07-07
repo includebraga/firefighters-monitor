@@ -30,11 +30,25 @@
   margin-bottom: 24px;
 }
 
-.duty {
+.piquet {
   width: 100%;
   margin-bottom: 12px;
 
   border-bottom: 4px solid $color-yellow;
+}
+
+.elac {
+  width: 100%;
+  margin-bottom: 12px;
+
+  border-bottom: 4px solid $color-roasted-yellow;
+}
+
+.eip {
+  width: 100%;
+  margin-bottom: 12px;
+
+  border-bottom: 4px solid $color-purple;
 }
 
 .busy {
@@ -57,7 +71,7 @@
 
 .empty {
   content: '';
-  
+
   width: 1px;
   height: $line-height-large;
 

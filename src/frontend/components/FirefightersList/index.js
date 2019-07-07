@@ -24,8 +24,8 @@ class FirefightersList extends Component {
     const {
       addActiveFirefighter,
       addBusyFirefighter,
-      firefighters,
       removeActiveFirefighter,
+      firefighters,
       updateFirefighterDuty
     } = this.props;
 
@@ -45,7 +45,7 @@ class FirefightersList extends Component {
             />
           ))}
         </div>
-        <Summary {...this.props} />
+        <Summary firefighters={firefighters} />
       </Fragment>
     );
   }

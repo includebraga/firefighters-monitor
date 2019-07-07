@@ -51,13 +51,13 @@ const firefightersNumbers = [
 const firefightersList = firefightersNumbers.map(number => ({
   name: number.toString(),
   status: "inactive",
-  isOnDuty: false
+  dutyType: "none"
 }));
 
 const firefightersCommand = [
-  { name: "Cmdt", status: "inactive", isOnDuty: false },
-  { name: "2º Cmdt", status: "inactive", isOnDuty: false },
-  { name: "Adj", status: "inactive", isOnDuty: false }
+  { name: "Cmdt", status: "inactive", dutyType: "none" },
+  { name: "2º Cmdt", status: "inactive", dutyType: "none" },
+  { name: "Adj", status: "inactive", dutyType: "none" }
 ];
 
 (async () => {
