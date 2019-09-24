@@ -1,14 +1,28 @@
 {
   "presets": [
     [
-      "env",
+      "@babel/preset-env",
       {
         "targets": {
-          "browsers": ["last 2 versions", "safari >= 7"]
-        }
+          "browsers": [
+            "last 2 versions",
+            "safari >= 7"
+          ]
+        },
+        "useBuiltIns": "usage",
+        "corejs": 3
       }
     ],
-    "react-plus"
+    "@babel/preset-react"
   ],
-  "plugins": ["react-css-modules"]
+  "plugins": [
+    [
+      "@babel/plugin-proposal-decorators",
+      {
+        "legacy": true
+      }
+    ],
+    "@babel/plugin-proposal-class-properties",
+    "react-css-modules"
+  ]
 }

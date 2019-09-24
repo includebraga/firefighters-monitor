@@ -1,6 +1,9 @@
 module.exports = {
   plugins: {
-    precss: {},
+    "postcss-extend-rule": {},
+    "postcss-advanced-variables": {},
+    "postcss-preset-env": {},
+    "postcss-nested": {},
     autoprefixer: {}
   }
 };
