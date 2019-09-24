@@ -3,6 +3,7 @@ const cors = require("cors");
 const express = require("express");
 const helmet = require("helmet");
 const path = require("path");
+const mime = require("mime-types");
 
 const auth = require("./auth");
 const firefighters = require("../repo/firefighters");
@@ -30,7 +31,15 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 app.use(
-  express.static(path.join(__dirname, "../../../dist/"), { maxAge: 86400000 })
+  express.static(path.join(__dirname, "../../../dist/"), {
+    maxAge: 8.64e8,
+    // exclude HTML files from cache
+    setHeaders: (res, headersPath) => {
+      if (mime.lookup(headersPath) === "text/html") {
+        res.setHeader("Cache-Control", "public, max-age=0");
+      }
+    }
+  })
 );
 
 app.get("/ping", async (req, res) => {
