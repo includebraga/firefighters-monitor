@@ -23,6 +23,11 @@
       }
     ],
     "@babel/plugin-proposal-class-properties",
-    "react-css-modules"
+    [
+      "react-css-modules",
+      {
+        "generateScopedName": "[path]___[hash:base64:5]"
+      }
+    ]
   ]
 }
