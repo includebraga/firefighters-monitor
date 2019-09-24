@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 
 import "./index.css";
 
@@ -62,18 +63,20 @@ class Firefighter extends PureComponent {
 
   render() {
     const { id, name, status, dutyType } = this.props;
+    const rootStyles = classNames("root", status);
+    const blockDutyStyles = classNames("block", "duty", dutyType);
 
     return (
       <button
         type="submit"
         data-tag={id}
-        styleName={`root ${status}`}
+        styleName={rootStyles}
         onContextMenu={this.preventDefault}
         onMouseDown={this.handleFirefighterClick}
       >
         <div styleName="block name">{name}</div>
         {dutyType !== "none" ? (
-          <div styleName={`block duty ${dutyType}`}>{label[dutyType]}</div>
+          <div styleName={blockDutyStyles}>{label[dutyType]}</div>
         ) : null}
         <div styleName="block status">{label[status]}</div>
       </button>
