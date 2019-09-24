@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 import withFirefighters from "../../containers/withFirefighters";
@@ -32,7 +32,7 @@ class FirefightersList extends Component {
     if (firefighters.loading) return null;
 
     return (
-      <Fragment>
+      <>
         <div styleName="list">
           {firefighters.data.map(firefighter => (
             <Firefighter
@@ -46,7 +46,7 @@ class FirefightersList extends Component {
           ))}
         </div>
         <Summary firefighters={firefighters} />
-      </Fragment>
+      </>
     );
   }
 }

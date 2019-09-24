@@ -6,7 +6,7 @@ exports.updateFirefighter = async (id, firefighterParams) => {
 
   if (!firefighter) return null;
 
-  await Firefighter.update(firefighter, firefighterParams);
+  await Firefighter.updateOne(firefighter, firefighterParams);
   const updatedFirefighter = await Firefighter.findById(id);
 
   historyRepo.createHistory(firefighter, updatedFirefighter);

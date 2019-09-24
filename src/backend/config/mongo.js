@@ -10,9 +10,9 @@ const MONGO_URL =
 const mongoose = require("mongoose");
 
 exports.connect = () =>
-  mongoose.connect(
-    MONGO_URL,
-    { useNewUrlParser: true }
-  );
+  mongoose.connect(MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
 
 exports.mongoose = mongoose;
