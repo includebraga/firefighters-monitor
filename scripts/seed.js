@@ -33,6 +33,7 @@ const firefightersNumbers = [
   79,
   80,
   91,
+  92,
   93,
   97,
   100,
