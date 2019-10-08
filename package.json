@@ -57,7 +57,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
-    "react-hot-loader": "^4.12.14",
+    "react-hot-loader": "^4.12.15",
     "regenerator-runtime": "^0.13.3",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",
