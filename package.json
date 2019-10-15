@@ -48,7 +48,7 @@
     "html-webpack-plugin": "^3.2.0",
     "lodash": "^4.17.15",
     "mime-types": "^2.1.24",
-    "mongoose": "^5.7.4",
+    "mongoose": "^5.7.5",
     "postcss-advanced-variables": "^3.0.0",
     "postcss-extend-rule": "^3.0.0",
     "postcss-loader": "^3.0.0",
