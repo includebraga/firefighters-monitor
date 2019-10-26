@@ -18,6 +18,46 @@ describe("Firefighters API", () => {
     await mongoose.connection.db.dropDatabase();
   });
 
+  it("should create a user", async () => {
+    const firefighter = await firefightersApi.createFirefighter({
+      email: "manuel@gmail.com",
+      password: "foobar"
+    });
+
+    expect(firefighter.email).to.eq("manuel@gmail.com");
+    // Should not be equal but should exist, because the password is hashed
+    expect(firefighter.password).to.not.eq("foobar");
+    expect(firefighter.password).to.exist;
+  });
+
+  it("should authenticate an user with a correct password", async () => {
+    const firefighter = await firefightersApi.createFirefighter({
+      email: "manuel@gmail.com",
+      password: "foobar"
+    });
+
+    const authedFirefighter = await firefightersApi.authenticateFirefighter(
+      firefighter.email,
+      "foobar"
+    );
+
+    expect(authedFirefighter.email).to.eq(firefighter.email);
+  });
+
+  it("should not authenticate an user with a incorrect password", async () => {
+    const firefighter = await firefightersApi.createFirefighter({
+      email: "manuel@gmail.com",
+      password: "foobar"
+    });
+
+    const auth = await firefightersApi.authenticateFirefighter(
+      firefighter.email,
+      "badpassword"
+    );
+
+    expect(auth).to.not.exist;
+  });
+
   it("should return all firefighters", async () => {
     const firefighters = JSON.parse(
       JSON.stringify(
