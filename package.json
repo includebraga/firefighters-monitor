@@ -47,6 +47,7 @@
     "express": "^4.17.1",
     "helmet": "^3.21.2",
     "html-webpack-plugin": "^3.2.0",
+    "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
     "mime-types": "^2.1.24",
     "mongoose": "^5.7.6",
@@ -85,6 +86,7 @@
     "stylelint-config-prettier": "^6.0.0",
     "stylelint-order": "^3.1.1",
     "svg-inline-loader": "^0.8.0",
-    "webpack-dev-server": "^3.8.2"
+    "webpack-dev-server": "^3.8.2",
+    "dotenv": "^8.2.0"
   }
 }
