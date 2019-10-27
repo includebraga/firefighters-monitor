@@ -10,6 +10,9 @@
     "BASIC_AUTH_USERNAME": {
       "required": true
     },
+    "JWT_SIGN_KEY": {
+      "generator": "secret"
+    },
     "NODE_ENV": {
       "required": true
     }
@@ -19,9 +22,7 @@
       "quantity": 1
     }
   },
-  "addons": [
-    "mongolab"
-  ],
+  "addons": ["mongolab"],
   "buildpacks": [
     {
       "url": "heroku/nodejs"
