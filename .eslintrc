@@ -16,6 +16,7 @@
   },
   "rules": {
     "prettier/prettier": "error",
+    "func-names": "off",
     "no-console": "off",
     "max-len": "off",
     "curly": [

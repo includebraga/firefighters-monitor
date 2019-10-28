@@ -1,5 +1,20 @@
+const bcrypt = require("bcrypt");
 const { Firefighter } = require("../models");
 const historyRepo = require("./history");
+
+exports.createFirefighter = async firefightersParams => {
+  return Firefighter.create(firefightersParams);
+};
+
+exports.authenticateFirefighter = async (email, password) => {
+  const firefighter = await Firefighter.findOne({ email });
+
+  if (!firefighter) return null;
+
+  const isAuth = await bcrypt.compare(password, firefighter.password);
+
+  return isAuth ? firefighter : null;
+};
 
 exports.updateFirefighter = async (id, firefighterParams) => {
   const firefighter = await Firefighter.findById(id);

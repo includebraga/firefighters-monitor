@@ -26,6 +26,53 @@ describe("Firefighters HTTP API", () => {
     await mongoose.connection.db.dropDatabase();
   });
 
+  it("should create a user", async () => {
+    const response = await chai
+      .request(server)
+      .post("/api/firefighters")
+      .send({
+        email: "manuel@gmail.com",
+        password: "foobar"
+      });
+
+    expect(response.body.email).to.eq("manuel@gmail.com");
+    expect(response.body.password).to.not.exist;
+  });
+
+  it("should authenticate an user with a correct password", async () => {
+    const firefighter = await firefightersApi.createFirefighter({
+      email: "manuel@gmail.com",
+      password: "foobar"
+    });
+
+    const response = await chai
+      .request(server)
+      .post("/api/firefighters/auth")
+      .send({
+        email: firefighter.email,
+        password: "foobar"
+      });
+
+    expect(response.body.email).to.eq(firefighter.email);
+  });
+
+  it("should not authenticate an user with a incorrect password", async () => {
+    const firefighter = await firefightersApi.createFirefighter({
+      email: "manuel@gmail.com",
+      password: "foobar"
+    });
+
+    const response = await chai
+      .request(server)
+      .post("/api/firefighters/auth")
+      .send({
+        email: firefighter.email,
+        password: "badpassword"
+      });
+
+    expect(response.status).to.eq(404);
+  });
+
   it("should return firefighters", async () => {
     const firefighters = JSON.parse(
       JSON.stringify(
