@@ -16,6 +16,10 @@ exports.authenticateFirefighter = async (email, password) => {
   return isAuth ? firefighter : null;
 };
 
+exports.getFirefighterByEmail = async email => {
+  return Firefighter.findOne({ email });
+};
+
 exports.updateFirefighter = async (id, firefighterParams) => {
   const firefighter = await Firefighter.findById(id);
 

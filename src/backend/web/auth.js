@@ -1,6 +1,8 @@
 const auth = require("basic-auth");
+const jwt = require("jsonwebtoken");
+const { getFirefighterByEmail } = require("../repo/firefighters");
 
-const { BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD } = process.env;
+const { BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD, JWT_SIGN_KEY } = process.env;
 
 const checkCredentials = user =>
   user.name === BASIC_AUTH_USERNAME && user.pass === BASIC_AUTH_PASSWORD;
@@ -25,4 +27,53 @@ const basicAuth = (req, res, next) => {
   return next();
 };
 
-module.exports = { basicAuth, ensureBasicAuthCredentials };
+const ensureJwtKey = () => {
+  if (!JWT_SIGN_KEY) {
+    throw new Error("JWT_SIGN_KEY should be defined");
+  }
+};
+
+const firefighterToToken = firefighter => {
+  const token = jwt.sign({ email: firefighter.email }, JWT_SIGN_KEY, {
+    expiresIn: Math.floor(Date.now() / 1000) + 60 * 60
+  });
+
+  return `Bearer ${token}`;
+};
+
+const tokenToFirefighter = async token => {
+  try {
+    const tokenWithoutPrefix = /^Bearer (.+?)$/.exec(token)[1];
+    const { email } = jwt.verify(tokenWithoutPrefix, JWT_SIGN_KEY);
+
+    if (!email) return null;
+
+    return getFirefighterByEmail(email);
+  } catch (error) {
+    return null;
+  }
+};
+
+const jwtAuthMiddleware = async (req, res, next) => {
+  const authorizationHeader = req.get("Authorization");
+  const firefighter = await tokenToFirefighter(authorizationHeader);
+
+  if (!firefighter) {
+    res.sendStatus(401);
+
+    return;
+  }
+
+  req.currentUser = firefighter;
+
+  next();
+};
+
+module.exports = {
+  basicAuth,
+  ensureBasicAuthCredentials,
+  ensureJwtKey,
+  firefighterToToken,
+  tokenToFirefighter,
+  jwtAuthMiddleware
+};

@@ -4,6 +4,7 @@ const { connect, mongoose } = require("../../src/backend/config/mongo");
 const { Firefighter } = require("../../src/backend/models");
 const server = require("../../src/backend/web/server");
 const firefightersApi = require("../../src/backend/repo/firefighters");
+const auth = require("../../src/backend/web/auth");
 
 const { expect } = chai;
 const app = server.listen(3001);
@@ -11,10 +12,21 @@ const app = server.listen(3001);
 chai.use(chaiHttp);
 
 describe("Firefighters HTTP API", () => {
+  let token;
+  let user;
+
   before(async () => {
     await connect();
-
     await mongoose.connection.db.dropDatabase();
+  });
+
+  beforeEach(async () => {
+    user = await firefightersApi.createFirefighter({
+      email: "user@gmail.com",
+      password: "userpassword"
+    });
+
+    token = auth.firefighterToToken(user);
   });
 
   after(async () => {
@@ -26,16 +38,33 @@ describe("Firefighters HTTP API", () => {
     await mongoose.connection.db.dropDatabase();
   });
 
-  it("should create a user", async () => {
+  it("requests without token return an unhauthorized response", async () => {
+    const userParams = {
+      email: "manuel@gmail.com",
+      password: "foobar"
+    };
+
     const response = await chai
       .request(server)
       .post("/api/firefighters")
-      .send({
-        email: "manuel@gmail.com",
-        password: "foobar"
-      });
+      .send(userParams);
 
-    expect(response.body.email).to.eq("manuel@gmail.com");
+    expect(response.status).to.eq(401);
+  });
+
+  it("should create a user", async () => {
+    const userParams = {
+      email: "manuel@gmail.com",
+      password: "foobar"
+    };
+
+    const response = await chai
+      .request(server)
+      .post("/api/firefighters")
+      .set("Authorization", token)
+      .send(userParams);
+
+    expect(response.body.email).to.eq(userParams.email);
     expect(response.body.password).to.not.exist;
   });
 
@@ -48,12 +77,17 @@ describe("Firefighters HTTP API", () => {
     const response = await chai
       .request(server)
       .post("/api/firefighters/auth")
+      .set("Authorization", token)
       .send({
         email: firefighter.email,
         password: "foobar"
       });
+    const firefighterFromToken = await auth.tokenToFirefighter(
+      response.body.jwt
+    );
 
     expect(response.body.email).to.eq(firefighter.email);
+    expect(firefighterFromToken.email).to.eq(firefighter.email);
   });
 
   it("should not authenticate an user with a incorrect password", async () => {
@@ -65,6 +99,7 @@ describe("Firefighters HTTP API", () => {
     const response = await chai
       .request(server)
       .post("/api/firefighters/auth")
+      .set("Authorization", token)
       .send({
         email: firefighter.email,
         password: "badpassword"
@@ -75,34 +110,40 @@ describe("Firefighters HTTP API", () => {
 
   it("should return firefighters", async () => {
     const firefighters = JSON.parse(
-      JSON.stringify(
-        await Firefighter.insertMany([
+      JSON.stringify([
+        user,
+        ...(await Firefighter.insertMany([
           { name: "Jonh Doe", status: "inactive" },
           { name: "Mary Donina", status: "inactive" },
           { name: "Joaquim Alberto", status: "inactive" }
-        ])
-      )
+        ]))
+      ])
     );
 
-    const response = await chai.request(server).get("/api/firefighters");
+    const response = await chai
+      .request(server)
+      .get("/api/firefighters")
+      .set("Authorization", token);
 
     expect(response.body).to.be.eql(firefighters);
   });
 
   it("should set firefighter number 2 to active", async () => {
     const firefighters = JSON.parse(
-      JSON.stringify(
-        await Firefighter.insertMany([
+      JSON.stringify([
+        user,
+        ...(await Firefighter.insertMany([
           { name: "Jonh Doe", status: "inactive" },
           { name: "Mary Donina", status: "inactive" },
           { name: "Joaquim Alberto", status: "inactive" }
-        ])
-      )
+        ]))
+      ])
     );
 
     const response = await chai
       .request(server)
       .put(`/api/firefighters/${firefighters[2].id}`)
+      .set("Authorization", token)
       .send({ status: "active" });
 
     expect(response.body[2].name).to.eq(firefighters[2].name);
@@ -111,13 +152,14 @@ describe("Firefighters HTTP API", () => {
 
   it("should set firefighter number 3 to inactive", async () => {
     const firefighters = JSON.parse(
-      JSON.stringify(
-        await Firefighter.insertMany([
+      JSON.stringify([
+        user,
+        ...(await Firefighter.insertMany([
           { name: "Jonh Doe", status: "inactive" },
           { name: "Mary Donina", status: "inactive" },
           { name: "Joaquim Alberto", status: "inactive" }
-        ])
-      )
+        ]))
+      ])
     );
 
     await firefightersApi.updateFirefighter(firefighters[2].id, {
@@ -127,6 +169,7 @@ describe("Firefighters HTTP API", () => {
     const response = await chai
       .request(server)
       .put(`/api/firefighters/${firefighters[2].id}`)
+      .set("Authorization", token)
       .send({ status: "inactive" });
 
     expect(response.body[2].name).to.eq(firefighters[2].name);

@@ -1,3 +1,6 @@
+// eslint-disable-next-line
+if (process.env.NODE_ENV !== "production") require("dotenv").config();
+
 const compression = require("compression");
 const cors = require("cors");
 const express = require("express");
@@ -12,10 +15,13 @@ const firefightersHistory = require("../repo/history");
 
 const app = express();
 
+auth.ensureJwtKey();
+
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(compression());
+app.use(auth.jwtAuthMiddleware);
 
 if (process.env.NODE_ENV !== "production") {
   app.use(cors());
@@ -71,7 +77,16 @@ app.post("/api/firefighters/auth", async (req, res) => {
     password
   );
 
-  return firefighter ? res.send(firefighter) : res.sendStatus(404);
+  if (firefighter) {
+    const serializedFirefighter = firefighter.toJSON();
+
+    res.send({
+      ...serializedFirefighter,
+      jwt: auth.firefighterToToken(firefighter)
+    });
+  } else {
+    res.sendStatus(404);
+  }
 });
 
 app.get("/api/firefighters/:id/history", async (req, res) => {
