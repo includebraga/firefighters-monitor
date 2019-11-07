@@ -1,10 +1,11 @@
 const chai = require("chai");
 const chaiHttp = require("chai-http");
-const { connect, mongoose } = require("../../src/backend/config/mongo");
-const { Firefighter } = require("../../src/backend/models");
-const server = require("../../src/backend/web/server");
-const firefightersApi = require("../../src/backend/repo/firefighters");
-const auth = require("../../src/backend/web/auth");
+const { connect, mongoose } = require("../config/mongo");
+const server = require("../web/server");
+const firefightersApi = require("../repo/firefighters");
+const auth = require("../web/auth");
+const { firefightersFactory } = require("./support/factories");
+const { serialize } = require("./support/utils");
 
 const { expect } = chai;
 const app = server.listen(3001);
@@ -21,10 +22,7 @@ describe("Firefighters HTTP API", () => {
   });
 
   beforeEach(async () => {
-    user = await firefightersApi.createFirefighter({
-      email: "user@gmail.com",
-      password: "userpassword"
-    });
+    user = await firefightersFactory.create();
 
     token = auth.firefighterToToken(user);
   });
@@ -39,10 +37,7 @@ describe("Firefighters HTTP API", () => {
   });
 
   it("requests without token return an unhauthorized response", async () => {
-    const userParams = {
-      email: "manuel@gmail.com",
-      password: "foobar"
-    };
+    const userParams = firefightersFactory.build();
 
     const response = await chai
       .request(server)
@@ -53,10 +48,7 @@ describe("Firefighters HTTP API", () => {
   });
 
   it("should create a user", async () => {
-    const userParams = {
-      email: "manuel@gmail.com",
-      password: "foobar"
-    };
+    const userParams = firefightersFactory.build();
 
     const response = await chai
       .request(server)
@@ -69,10 +61,7 @@ describe("Firefighters HTTP API", () => {
   });
 
   it("should authenticate an user with a correct password", async () => {
-    const firefighter = await firefightersApi.createFirefighter({
-      email: "manuel@gmail.com",
-      password: "foobar"
-    });
+    const firefighter = await firefightersFactory.create();
 
     const response = await chai
       .request(server)
@@ -91,10 +80,7 @@ describe("Firefighters HTTP API", () => {
   });
 
   it("should not authenticate an user with a incorrect password", async () => {
-    const firefighter = await firefightersApi.createFirefighter({
-      email: "manuel@gmail.com",
-      password: "foobar"
-    });
+    const firefighter = await firefightersFactory.create();
 
     const response = await chai
       .request(server)
@@ -109,16 +95,10 @@ describe("Firefighters HTTP API", () => {
   });
 
   it("should return firefighters", async () => {
-    const firefighters = JSON.parse(
-      JSON.stringify([
-        user,
-        ...(await Firefighter.insertMany([
-          { name: "Jonh Doe", status: "inactive" },
-          { name: "Mary Donina", status: "inactive" },
-          { name: "Joaquim Alberto", status: "inactive" }
-        ]))
-      ])
-    );
+    const firefighters = serialize([
+      user,
+      ...(await firefightersFactory.createList(3))
+    ]);
 
     const response = await chai
       .request(server)
@@ -129,16 +109,10 @@ describe("Firefighters HTTP API", () => {
   });
 
   it("should set firefighter number 2 to active", async () => {
-    const firefighters = JSON.parse(
-      JSON.stringify([
-        user,
-        ...(await Firefighter.insertMany([
-          { name: "Jonh Doe", status: "inactive" },
-          { name: "Mary Donina", status: "inactive" },
-          { name: "Joaquim Alberto", status: "inactive" }
-        ]))
-      ])
-    );
+    const firefighters = serialize([
+      user,
+      ...(await firefightersFactory.createList(3))
+    ]);
 
     const response = await chai
       .request(server)
@@ -151,16 +125,10 @@ describe("Firefighters HTTP API", () => {
   });
 
   it("should set firefighter number 3 to inactive", async () => {
-    const firefighters = JSON.parse(
-      JSON.stringify([
-        user,
-        ...(await Firefighter.insertMany([
-          { name: "Jonh Doe", status: "inactive" },
-          { name: "Mary Donina", status: "inactive" },
-          { name: "Joaquim Alberto", status: "inactive" }
-        ]))
-      ])
-    );
+    const firefighters = serialize([
+      user,
+      ...(await firefightersFactory.createList(3))
+    ]);
 
     await firefightersApi.updateFirefighter(firefighters[2].id, {
       status: "active"
