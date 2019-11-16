@@ -5,7 +5,7 @@ const Firefighter = require("../../models/firefighter");
 
 const firefightersFactory = new Factory().attrs({
   name: faker.name.firstName,
-  email: faker.internet.email(),
+  code: faker.random.uuid(),
   password: "foobar",
   status: sample("active", "inactive", "busy")
 });

@@ -56,7 +56,7 @@ describe("Firefighters HTTP API", () => {
       .set("Authorization", token)
       .send(userParams);
 
-    expect(response.body.email).to.eq(userParams.email);
+    expect(response.body.code).to.eq(userParams.code);
     expect(response.body.password).to.not.exist;
   });
 
@@ -68,15 +68,15 @@ describe("Firefighters HTTP API", () => {
       .post("/api/firefighters/auth")
       .set("Authorization", token)
       .send({
-        email: firefighter.email,
+        code: firefighter.code,
         password: "foobar"
       });
     const firefighterFromToken = await auth.tokenToFirefighter(
       response.body.jwt
     );
 
-    expect(response.body.email).to.eq(firefighter.email);
-    expect(firefighterFromToken.email).to.eq(firefighter.email);
+    expect(response.body.code).to.eq(firefighter.code);
+    expect(firefighterFromToken.code).to.eq(firefighter.code);
   });
 
   it("should not authenticate an user with a incorrect password", async () => {
@@ -87,7 +87,7 @@ describe("Firefighters HTTP API", () => {
       .post("/api/firefighters/auth")
       .set("Authorization", token)
       .send({
-        email: firefighter.email,
+        code: firefighter.code,
         password: "badpassword"
       });
 

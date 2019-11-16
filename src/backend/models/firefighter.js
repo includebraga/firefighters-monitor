@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const FirefighterSchema = new mongoose.Schema(
   {
     name: String,
-    email: { type: String, unique: true, index: true },
+    code: { type: String, unique: true, index: true },
     password: { type: String },
     status: String,
     dutyType: String

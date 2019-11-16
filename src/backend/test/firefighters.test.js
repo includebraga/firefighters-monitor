@@ -26,7 +26,7 @@ describe("Firefighters API", () => {
       firefighterParams
     );
 
-    expect(firefighter.email).to.eq(firefighterParams.email);
+    expect(firefighter.code).to.eq(firefighterParams.code);
     // Should not be equal but should exist, because the password is hashed
     expect(firefighter.password).to.not.eq("foobar");
     expect(firefighter.password).to.exist;
@@ -36,18 +36,18 @@ describe("Firefighters API", () => {
     const firefighter = await firefightersFactory.create();
 
     const authedFirefighter = await firefightersApi.authenticateFirefighter(
-      firefighter.email,
+      firefighter.code,
       "foobar"
     );
 
-    expect(authedFirefighter.email).to.eq(firefighter.email);
+    expect(authedFirefighter.code).to.eq(firefighter.code);
   });
 
   it("should not authenticate an user with a incorrect password", async () => {
     const firefighter = await firefightersFactory.create();
 
     const auth = await firefightersApi.authenticateFirefighter(
-      firefighter.email,
+      firefighter.code,
       "badpassword"
     );
 

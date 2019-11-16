@@ -1,6 +1,6 @@
 const auth = require("basic-auth");
 const jwt = require("jsonwebtoken");
-const { getFirefighterByEmail } = require("../repo/firefighters");
+const { getFirefighterBycode } = require("../repo/firefighters");
 
 const { BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD, JWT_SIGN_KEY } = process.env;
 
@@ -34,7 +34,7 @@ const ensureJwtKey = () => {
 };
 
 const firefighterToToken = firefighter => {
-  const token = jwt.sign({ email: firefighter.email }, JWT_SIGN_KEY, {
+  const token = jwt.sign({ code: firefighter.code }, JWT_SIGN_KEY, {
     expiresIn: Math.floor(Date.now() / 1000) + 60 * 60
   });
 
@@ -44,11 +44,11 @@ const firefighterToToken = firefighter => {
 const tokenToFirefighter = async token => {
   try {
     const tokenWithoutPrefix = /^Bearer (.+?)$/.exec(token)[1];
-    const { email } = jwt.verify(tokenWithoutPrefix, JWT_SIGN_KEY);
+    const { code } = jwt.verify(tokenWithoutPrefix, JWT_SIGN_KEY);
 
-    if (!email) return null;
+    if (!code) return null;
 
-    return getFirefighterByEmail(email);
+    return getFirefighterBycode(code);
   } catch (error) {
     return null;
   }
