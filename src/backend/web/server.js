@@ -58,9 +58,9 @@ app.get("/api/firefighters", async (req, res) => {
 });
 
 app.post("/api/firefighters", async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, code, password } = req.body;
 
-  res.send(await firefighters.createFirefighter({ name, email, password }));
+  res.send(await firefighters.createFirefighter({ name, code, password }));
 });
 
 app.put("/api/firefighters/:id", async (req, res) => {
@@ -70,10 +70,10 @@ app.put("/api/firefighters/:id", async (req, res) => {
 });
 
 app.post("/api/firefighters/auth", async (req, res) => {
-  const { email, password } = req.body;
+  const { code, password } = req.body;
 
   const firefighter = await firefighters.authenticateFirefighter(
-    email,
+    code,
     password
   );
 
