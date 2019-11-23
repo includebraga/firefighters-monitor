@@ -77,3 +77,6 @@ dist/
 
 # VScode
 jsconfig.json
+
+# OSX
+.DS_Store

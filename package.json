@@ -40,6 +40,7 @@
     "classnames": "^2.2.6",
     "cluster": "^0.7.7",
     "compression": "^1.7.4",
+    "copy-webpack-plugin": "^5.0.5",
     "core-js": "^3.3.3",
     "cors": "^2.8.5",
     "css-loader": "^3.2.0",
@@ -84,6 +85,8 @@
     "stylelint-config-prettier": "^6.0.0",
     "stylelint-order": "^3.1.1",
     "svg-inline-loader": "^0.8.0",
-    "webpack-dev-server": "^3.8.2"
+    "sw-precache-webpack-plugin": "^0.11.5",
+    "webpack-dev-server": "^3.8.2",
+    "webpack-manifest-plugin": "^2.2.0"
   }
 }
