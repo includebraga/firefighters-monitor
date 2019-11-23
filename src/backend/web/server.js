@@ -21,21 +21,18 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(compression());
-app.use(auth.jwtAuthMiddleware);
 
 if (process.env.NODE_ENV !== "production") {
   app.use(cors());
-} else {
-  auth.ensureBasicAuthCredentials();
-
-  app.all("*", (req, res, next) => {
-    if (req.path !== "/ping") {
-      return auth.basicAuth(req, res, next);
-    }
-
-    return next();
-  });
 }
+
+app.all("*", (req, res, next) => {
+  if (req.path.includes("/api/firefighters")) {
+    return auth.jwtAuthMiddleware(req, res, next);
+  }
+
+  return next();
+});
 
 app.use(
   express.static(path.join(__dirname, "../../../dist/"), {
@@ -69,7 +66,7 @@ app.put("/api/firefighters/:id", async (req, res) => {
   res.send(await firefighters.updateFirefighter(firefighterId, req.body));
 });
 
-app.post("/api/firefighters/auth", async (req, res) => {
+app.post("/api/auth", async (req, res) => {
   const { code, password } = req.body;
 
   const firefighter = await firefighters.authenticateFirefighter(

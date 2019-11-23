@@ -65,12 +65,23 @@ describe("Firefighters HTTP API", () => {
 
     const response = await chai
       .request(server)
-      .post("/api/firefighters/auth")
-      .set("Authorization", token)
+      .post("/api/auth")
       .send({
         code: firefighter.code,
         password: "foobar"
       });
+
+    console.log(
+      "%c==>",
+      "color: green; background: yellow; font-size: 20px",
+      response.body
+    );
+    console.log(
+      "%c==>",
+      "color: green; background: yellow; font-size: 20px",
+      response.status
+    );
+
     const firefighterFromToken = await auth.tokenToFirefighter(
       response.body.jwt
     );
@@ -84,7 +95,7 @@ describe("Firefighters HTTP API", () => {
 
     const response = await chai
       .request(server)
-      .post("/api/firefighters/auth")
+      .post("/api/auth")
       .set("Authorization", token)
       .send({
         code: firefighter.code,

@@ -1,31 +1,7 @@
-const auth = require("basic-auth");
 const jwt = require("jsonwebtoken");
 const { getFirefighterBycode } = require("../repo/firefighters");
 
-const { BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD, JWT_SIGN_KEY } = process.env;
-
-const checkCredentials = user =>
-  user.name === BASIC_AUTH_USERNAME && user.pass === BASIC_AUTH_PASSWORD;
-
-const ensureBasicAuthCredentials = () => {
-  if (!BASIC_AUTH_PASSWORD || !BASIC_AUTH_USERNAME) {
-    throw new Error(
-      "BASIC_AUTH_USERNAME and BASIC_AUTH_PASSWORD must be defined"
-    );
-  }
-};
-
-const basicAuth = (req, res, next) => {
-  const user = auth(req);
-
-  if (!user || !checkCredentials(user)) {
-    res.set("WWW-Authenticate", 'Basic realm = "include braga"');
-
-    return res.status(401).send();
-  }
-
-  return next();
-};
+const { JWT_SIGN_KEY } = process.env;
 
 const ensureJwtKey = () => {
   if (!JWT_SIGN_KEY) {
@@ -70,8 +46,6 @@ const jwtAuthMiddleware = async (req, res, next) => {
 };
 
 module.exports = {
-  basicAuth,
-  ensureBasicAuthCredentials,
   ensureJwtKey,
   firefighterToToken,
   tokenToFirefighter,
