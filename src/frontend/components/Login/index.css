@@ -19,11 +19,13 @@ $background: $color-grey;
   display: flex;
   flex-direction: column;
   width: 320px;
+  margin: 20px;
 }
 
 .card {
   display: flex;
   flex-direction: column;
+  width: 100%;
   padding: $size-small;
 
   background-color: $background;
