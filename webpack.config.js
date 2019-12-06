@@ -11,12 +11,12 @@ module.exports = {
     rules: [
       {
         test: /\.svg$/,
-        loader: "svg-inline-loader"
+        loader: "svg-inline-loader",
       },
       {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules)/,
-        use: { loader: "babel-loader" }
+        use: { loader: "babel-loader" },
       },
       {
         test: /\.(css|scss)$/,
@@ -27,14 +27,14 @@ module.exports = {
             options: {
               modules: {
                 mode: "local",
-                localIdentName: "[path]___[hash:base64:5]"
-              }
-            }
+                localIdentName: "[path]___[hash:base64:5]",
+              },
+            },
           },
-          "postcss-loader"
-        ]
-      }
-    ]
+          "postcss-loader",
+        ],
+      },
+    ],
   },
 
   optimization: {
@@ -43,26 +43,30 @@ module.exports = {
         commons: {
           test: /[\\/]node_modules[\\/]/,
           name: "vendors",
-          chunks: "all"
-        }
-      }
-    }
+          chunks: "all",
+        },
+      },
+    },
   },
 
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "/src/frontend/index.html"),
-      inject: "body"
-    })
+      inject: "body",
+    }),
   ],
+
+  devServer: {
+    historyApiFallback: true,
+  },
 
   output: {
     path: path.join(__dirname, "/dist"),
     publicPath: "/",
-    filename: "[name].[hash].js"
+    filename: "[name].[hash].js",
   },
 
   resolve: {
-    extensions: [".js", ".jsx", ".json", ".css", ".scss"]
-  }
+    extensions: [".js", ".jsx", ".json", ".css", ".scss"],
+  },
 };
