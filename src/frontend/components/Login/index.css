@@ -1,0 +1,86 @@
+@import "../../styles/typography";
+@import "../../styles/colors";
+@import "../../styles/spacings";
+
+$background: $color-grey;
+
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.heading {
+  margin-bottom: $size-small;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: $size-small;
+
+  background-color: $background;
+  border-radius: 4px;
+}
+
+.input {
+  position: relative;
+  z-index: 1;
+
+  &:first-child {
+    padding-bottom: 10px;
+  }
+
+  /* width: 100%; */
+
+  background-color: $background;
+  border: none;
+  /* padding: var(--size-8) var(--size-12); */
+
+  /* background: var(--color-white);
+  border: 1px solid var(--color-minsk); */
+  /* border-radius: 4px; */
+  /* color: var(--color-minsk); */
+  outline: 0;
+
+  font-family: $font-family-mono;
+
+  font-size: $font-size-small;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-small;
+
+  &.border {
+    margin-bottom: 10px;
+
+    border-bottom: 1px solid white;
+  }
+
+  &.invalid {
+    border-color: $color-fire-red;
+  }
+
+  &::placeholder {
+    /* color: var(--color-indigo); */
+
+    font-weight: $font-weight-regular;
+  }
+}
+
+.errors {
+  color: $color-fire-red;
+
+  font-size: 12px;
+  font-weight: $font-weight-regular;
+  line-height: $line-height-small;
+}
+
+.buttonWrapper {
+  margin-top: $size-small;
+}

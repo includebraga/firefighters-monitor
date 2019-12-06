@@ -8,8 +8,8 @@ export default ChildComponent =>
     state = {
       firefighters: {
         response: null,
-        loading: true
-      }
+        loading: true,
+      },
     };
 
     componentDidMount() {
@@ -28,36 +28,36 @@ export default ChildComponent =>
       this.setState({
         firefighters: {
           loading: false,
-          ...response
-        }
+          ...response,
+        },
       });
     };
 
     addActiveFirefighter = id => {
       this.socket.emit("update_firefighter", {
         id,
-        payload: { status: "active" }
+        payload: { status: "active" },
       });
     };
 
     addBusyFirefighter = async id => {
       this.socket.emit("update_firefighter", {
         id,
-        payload: { status: "busy" }
+        payload: { status: "busy" },
       });
     };
 
     removeActiveFirefighter = async id => {
       this.socket.emit("update_firefighter", {
         id,
-        payload: { status: "inactive" }
+        payload: { status: "inactive" },
       });
     };
 
     updateFirefighterDuty = async (id, dutyType) => {
       this.socket.emit("update_firefighter", {
         id,
-        payload: { dutyType }
+        payload: { dutyType },
       });
     };
 

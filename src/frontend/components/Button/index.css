@@ -1,0 +1,59 @@
+@import "../../styles/typography";
+@import "../../styles/colors";
+@import "../../styles/spacings";
+
+$border-size: 6px;
+
+.wrapper {
+  position: relative;
+
+  display: flex;
+
+  margin-bottom: $border-size;
+
+  &::before {
+    content: "";
+
+    position: absolute;
+    bottom: calc(-1 * $border-size);
+    left: 0;
+
+    z-index: 1;
+
+    width: 100%;
+    height: $size-small;
+
+    background-color: $color-leaf-green;
+    border-radius: 4px;
+    opacity: 0.5;
+  }
+}
+
+.root {
+  z-index: 2;
+
+  width: 100%;
+  padding: 0;
+  margin: 0;
+
+  background: none;
+  background-color: white;
+  border: none;
+  border-radius: 4px;
+  color: inherit;
+  /* outline: none; */
+
+  font: inherit;
+  font-family: inherit;
+  font-size: $font-size-small;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-small;
+}
+
+.green {
+  padding: $size-xSmall;
+
+  background-color: $color-leaf-green;
+
+  color: white;
+}

@@ -1,11 +1,5 @@
-@import '../../styles/colors';
+@import "../../styles/colors";
 
 .root {
-  display: flex;
-  flex-wrap: wrap;
-  height: 100vh;
-  padding: 12px 0;
-  margin: 0 auto;
-
-  /* background-color: $color-blue; */
+  min-height: 100vh;
 }

@@ -1,9 +1,16 @@
+@import "../styles/typography";
+@import "../styles/colors";
+
 html,
 body {
   height: 100%;
 
+  font-family: $font-family-mono;
+  font-size: $font-size-medium;
+
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: auto;
+  font-weight: $font-weight-regular;
   text-rendering: optimizeLegibility;
 }
 
@@ -15,4 +22,16 @@ html {
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px $color-grey inset;
+}
+
+input:-moz-autofill {
+  -moz-box-shadow: 0 0 0 1000px $color-grey inset;
+}
+
+input:-ms-autofill {
+  -ms-box-shadow: 0 0 0 1000px $color-grey inset;
 }
