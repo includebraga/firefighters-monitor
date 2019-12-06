@@ -16,9 +16,9 @@ const Login = () => {
       <div styleName="wrapper">
         <h1 styleName="heading">Bem vindo</h1>
         <form styleName="card" onSubmit={handleSubmit(onSubmit)}>
-          {errors.code && (
-            <span styleName="errors">Ups! Preenche o teu número interno</span>
-          )}
+          <span styleName={classNames("errors", { show: !!errors.code })}>
+            Ups! Preenche o teu número interno
+          </span>
           <input
             styleName={classNames("input", "border", {
               invalid: errors.code || errors.password,
@@ -28,9 +28,9 @@ const Login = () => {
             placeholder="Número de bombeiro"
             ref={registerRequiredField()}
           />
-          {errors.password && (
-            <span styleName="errors">Ups! Preenche a tua password</span>
-          )}
+          <span styleName={classNames("errors", { show: !!errors.password })}>
+            Ups! Preenche a tua password
+          </span>
           <input
             styleName="input"
             name="password"
