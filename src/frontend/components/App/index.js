@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 
 import FirefightersList from "../FirefightersList";
 import Login from "../../containers/Login";
+import User from "../../containers/User";
 
 import "./index.css";
 
@@ -15,6 +16,9 @@ class App extends Component {
             <FirefightersList />
           </div>
         </Route>
+        <Route exact path="/user">
+          <User />
+        </Route>
         <Route path="/">
           <Login />
         </Route>
@@ -24,7 +28,3 @@ class App extends Component {
 }
 
 export default App;
-
-// <Route exact path="/user">
-//   <User />
-// </Route>

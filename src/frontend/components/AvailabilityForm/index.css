@@ -4,32 +4,10 @@
 
 $background: $color-grey;
 
-.root {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
-
-.heading {
-  margin-bottom: $size-small;
-}
-
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  width: 320px;
-  margin: 20px;
-}
-
 .card {
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: $size-small;
-
-  background-color: $background;
-  border-radius: 4px;
 }
 
 .input {

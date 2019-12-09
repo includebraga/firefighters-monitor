@@ -1,0 +1,35 @@
+@import "../../styles/colors";
+@import "../../styles/spacings";
+
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.heading {
+  margin-bottom: $size-medium;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+  margin: $size-small;
+}
+
+.card {
+  width: 100%;
+  padding: $size-small;
+
+  border-radius: 4px;
+}
+
+.grey {
+  background-color: $color-grey;
+}
+
+.green {
+  background-color: $color-leaf-green;
+}

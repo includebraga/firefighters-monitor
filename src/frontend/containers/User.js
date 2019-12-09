@@ -1,11 +1,11 @@
 import React from "react";
 
 import Layout from "../components/Layout";
-import LoginForm from "../components/LoginForm";
+import AvailabilityForm from "../components/AvailabilityForm";
 
 const LoginContainer = () => (
-  <Layout heading="Bem vindo" cardColor="grey">
-    <LoginForm />
+  <Layout heading="Bombeiros disponíveis" cardColor="grey">
+    <AvailabilityForm />
   </Layout>
 );
 
