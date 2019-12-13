@@ -66,7 +66,6 @@ describe("Firefighters HTTP API", () => {
     const response = await chai
       .request(server)
       .post("/api/firefighters/auth")
-      .set("Authorization", token)
       .send({
         code: firefighter.code,
         password: "foobar"

@@ -54,7 +54,7 @@ const tokenToFirefighter = async token => {
   }
 };
 
-const jwtAuthMiddleware = async (req, res, next) => {
+const requireAuth = async (req, res, next) => {
   const authorizationHeader = req.get("Authorization");
   const firefighter = await tokenToFirefighter(authorizationHeader);
 
@@ -75,5 +75,5 @@ module.exports = {
   ensureJwtKey,
   firefighterToToken,
   tokenToFirefighter,
-  jwtAuthMiddleware
+  requireAuth
 };
