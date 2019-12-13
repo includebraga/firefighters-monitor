@@ -21,7 +21,6 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(compression());
-app.use(auth.jwtAuthMiddleware);
 
 if (process.env.NODE_ENV !== "production") {
   app.use(cors());
@@ -53,22 +52,6 @@ app.get("/ping", async (req, res) => {
   res.status(200).send();
 });
 
-app.get("/api/firefighters", async (req, res) => {
-  res.send(await firefighters.getFirefighters());
-});
-
-app.post("/api/firefighters", async (req, res) => {
-  const { name, code, password } = req.body;
-
-  res.send(await firefighters.createFirefighter({ name, code, password }));
-});
-
-app.put("/api/firefighters/:id", async (req, res) => {
-  const firefighterId = req.params.id;
-
-  res.send(await firefighters.updateFirefighter(firefighterId, req.body));
-});
-
 app.post("/api/firefighters/auth", async (req, res) => {
   const { code, password } = req.body;
 
@@ -87,6 +70,26 @@ app.post("/api/firefighters/auth", async (req, res) => {
   } else {
     res.sendStatus(404);
   }
+});
+
+// Everything below this requires AUTH
+
+app.use(auth.requireAuth);
+
+app.get("/api/firefighters", async (req, res) => {
+  res.send(await firefighters.getFirefighters());
+});
+
+app.post("/api/firefighters", async (req, res) => {
+  const { name, code, password } = req.body;
+
+  res.send(await firefighters.createFirefighter({ name, code, password }));
+});
+
+app.put("/api/firefighters/:id", async (req, res) => {
+  const firefighterId = req.params.id;
+
+  res.send(await firefighters.updateFirefighter(firefighterId, req.body));
 });
 
 app.get("/api/firefighters/:id/history", async (req, res) => {
