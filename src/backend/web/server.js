@@ -72,27 +72,26 @@ app.post("/api/firefighters/auth", async (req, res) => {
   }
 });
 
+app.use(auth.requireAdminAuth);
 // Everything below this requires AUTH
 
-app.use(auth.requireAuth);
-
-app.get("/api/firefighters", async (req, res) => {
+app.get("/api/admin/firefighters", async (req, res) => {
   res.send(await firefighters.getFirefighters());
 });
 
-app.post("/api/firefighters", async (req, res) => {
+app.post("/api/admin/firefighters", async (req, res) => {
   const { name, code, password } = req.body;
 
   res.send(await firefighters.createFirefighter({ name, code, password }));
 });
 
-app.put("/api/firefighters/:id", async (req, res) => {
+app.put("/api/admin/firefighters/:id", async (req, res) => {
   const firefighterId = req.params.id;
 
   res.send(await firefighters.updateFirefighter(firefighterId, req.body));
 });
 
-app.get("/api/firefighters/:id/history", async (req, res) => {
+app.get("/api/admin/firefighters/:id/history", async (req, res) => {
   const firefighterId = req.params.id;
 
   res.send(await firefightersHistory.getHistoryOfFirefighter(firefighterId));

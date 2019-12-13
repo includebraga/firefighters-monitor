@@ -7,7 +7,8 @@ const FirefighterSchema = new mongoose.Schema(
     code: { type: String, unique: true, index: true },
     password: { type: String },
     status: String,
-    dutyType: String
+    dutyType: String,
+    role: { type: String, enum: ["regular", "admin"], default: "regular" }
   },
   { timestamps: true }
 );

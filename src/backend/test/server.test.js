@@ -22,7 +22,7 @@ describe("Firefighters HTTP API", () => {
   });
 
   beforeEach(async () => {
-    user = await firefightersFactory.create();
+    user = await firefightersFactory.create({ role: "admin" });
 
     token = auth.firefighterToToken(user);
   });
@@ -41,7 +41,7 @@ describe("Firefighters HTTP API", () => {
 
     const response = await chai
       .request(server)
-      .post("/api/firefighters")
+      .post("/api/admin/firefighters")
       .send(userParams);
 
     expect(response.status).to.eq(401);
@@ -52,7 +52,7 @@ describe("Firefighters HTTP API", () => {
 
     const response = await chai
       .request(server)
-      .post("/api/firefighters")
+      .post("/api/admin/firefighters")
       .set("Authorization", token)
       .send(userParams);
 
@@ -101,7 +101,7 @@ describe("Firefighters HTTP API", () => {
 
     const response = await chai
       .request(server)
-      .get("/api/firefighters")
+      .get("/api/admin/firefighters")
       .set("Authorization", token);
 
     expect(response.body).to.be.eql(firefighters);
@@ -115,7 +115,7 @@ describe("Firefighters HTTP API", () => {
 
     const response = await chai
       .request(server)
-      .put(`/api/firefighters/${firefighters[2].id}`)
+      .put(`/api/admin/firefighters/${firefighters[2].id}`)
       .set("Authorization", token)
       .send({ status: "active" });
 
@@ -135,7 +135,7 @@ describe("Firefighters HTTP API", () => {
 
     const response = await chai
       .request(server)
-      .put(`/api/firefighters/${firefighters[2].id}`)
+      .put(`/api/admin/firefighters/${firefighters[2].id}`)
       .set("Authorization", token)
       .send({ status: "inactive" });
 

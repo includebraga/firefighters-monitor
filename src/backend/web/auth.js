@@ -69,11 +69,27 @@ const requireAuth = async (req, res, next) => {
   next();
 };
 
+const requireAdminAuth = async (req, res, next) => {
+  const authorizationHeader = req.get("Authorization");
+  const firefighter = await tokenToFirefighter(authorizationHeader);
+
+  if (!firefighter || firefighter.role !== "admin") {
+    res.sendStatus(401);
+
+    return;
+  }
+
+  req.currentUser = firefighter;
+
+  next();
+};
+
 module.exports = {
   basicAuth,
   ensureBasicAuthCredentials,
   ensureJwtKey,
   firefighterToToken,
   tokenToFirefighter,
-  requireAuth
+  requireAuth,
+  requireAdminAuth
 };
