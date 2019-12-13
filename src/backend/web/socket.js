@@ -1,5 +1,6 @@
 const socketIo = require("socket.io");
 const firefightersRepo = require("../repo/firefighters");
+const { tokenToFirefighter } = require("./auth");
 
 module.exports = server => {
   const io = socketIo.listen(server);
@@ -18,6 +19,16 @@ module.exports = server => {
 
     broadcastFirefighters(updatedFirefighters);
   };
+
+  io.use(async (socket, next) => {
+    const token = socket.handshake.headers.Authorization;
+
+    if (await tokenToFirefighter(token)) {
+      return next();
+    }
+
+    return next(new Error("authentication error"));
+  });
 
   io.on("connection", async socket => {
     const firefighters = await firefightersRepo.getFirefighters();
