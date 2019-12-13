@@ -15,6 +15,10 @@ export default ChildComponent =>
     componentDidMount() {
       this.socket = io(API_URL);
 
+      this.socket.on("error", response => {
+        console.error(response);
+      });
+
       this.socket.on("firefighters", response => {
         this.loadResponseIntoState({ data: response });
       });
