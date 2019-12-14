@@ -52,7 +52,7 @@ app.get("/ping", async (req, res) => {
   res.status(200).send();
 });
 
-app.post("/api/firefighters/auth", async (req, res) => {
+app.post("/api/auth", async (req, res) => {
   const { code, password } = req.body;
 
   const firefighter = await firefighters.authenticateFirefighter(
